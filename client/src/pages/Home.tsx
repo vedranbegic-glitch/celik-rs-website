@@ -22,7 +22,7 @@ export const SCRIPT_CONTENT = {
   ],
   matrix: {
     heading: "Jedna Matrica. Sve Moguće Završne Obloge.",
-    subheading: "Izaberite savršen finiš za Vašu terasu, lođu, dvorište ili prostor oko bazena. Sve leži na istoj modularnoj mreži:",
+    subheading: "Izaberite savršen finiš za Vaš pod — terasu, dvorište, prostor oko bazena ili enterijer. Sve leži na istoj modularnoj mreži:",
     scenarios: [
       {
         id: "SCEN-01",
@@ -50,8 +50,8 @@ export const SCRIPT_CONTENT = {
       },
       {
         id: "SCEN-04",
-        title: "DECKING-COMPOUND MONOBLOK",
-        useCase: "IDEALNO ZA: BAZENE, KOMERCIJALNE I PRIVATNE TERASE.",
+        title: "WPC-COMPOUND MONOBLOK",
+        useCase: "IDEALNO ZA: BAZENE, DVORIŠTA I KOMERCIJALNE PROSTORE.",
         benefit: "Premium panel sa ugrađenim WPC daskama punog profila. Donosi izgled drveta uz dugovečnost polimera. Pametni ram idealno kompenzuje mikromilimetarska širenja materijala na suncu, bez ikakvog godišnjeg održavanja.",
         badge: "PRIRODNA TOPLINA",
         imgUrl: "/decking-compound.jpg",
@@ -64,7 +64,7 @@ export const SCRIPT_CONTENT = {
       {
         code: "B2C_001",
         title: "Montaža za 15 Minuta",
-        desc: "Revolucionarni sistem 'Spusti i Klikni' (Click-Clap). Paneli stižu fabrički sklopljeni i fiksirani sa podkonstrukcijom direktno na Vašu terasu.",
+        desc: "Revolucionarni sistem 'Spusti i Klikni' (Click-Clap). Paneli stižu fabrički sklopljeni i fiksirani sa podkonstrukcijom direktno na Vašu površinu.",
       },
       {
         code: "B2C_002",
@@ -94,7 +94,7 @@ export const SCRIPT_CONTENT = {
       {
         number: "3",
         title: "Spustite na Mesto i Uživajte",
-        desc: "Sistem stiže potpuno fabrički sklopljen. Monoblok panele jednostavno spustite na poziciju i bočno spojite bez ijednog šrafa. Vaša nova terasa je spremna odmah!",
+        desc: "Sistem stiže potpuno fabrički sklopljen. Monoblok panele jednostavno spustite na poziciju i bočno spojite bez ijednog šrafa. Vaš novi pod je spreman odmah!",
       },
     ],
     stepsImgUrl: "/manus-storage/paleta_gotov_pod_dfe98f45.webp",
@@ -124,7 +124,7 @@ export const SCRIPT_CONTENT = {
       },
       {
         id: "faq-02",
-        question: "Kako funkcioniše odvod vode i drenaža na terasi?",
+        question: "Kako funkcioniše odvod vode i drenaža ispod panela?",
         answer: "Sistem ima integrisane sklopive stope koje podižu pod od podloge. Voda slobodno prolazi kroz fuge od 2mm direktno do Vašeg slivnika, tako da površina ostaje suva odmah nakon kiše.",
       },
       {
@@ -172,7 +172,7 @@ function FAQAccordion({ question, answer }: { question: string; answer: string }
 // System options for calculator
 const SYSTEM_OPTIONS = [
   { id: "sys-ceramic-1000", name: "Premium Keramika (1.0m × 1.0m)", price: 185, moduleSize: 1.0 },
-  { id: "sys-wpc-1000", name: "WPC Deking (1.0m × 1.0m)", price: 220, moduleSize: 1.0 },
+  { id: "sys-wpc-1000", name: "WPC Kompozit (1.0m × 1.0m)", price: 220, moduleSize: 1.0 },
   { id: "sys-eco-1000", name: "Eco-Green Trava (1.0m × 1.0m)", price: 165, moduleSize: 1.0 },
 ];
 
@@ -208,8 +208,8 @@ export default function CelikMainPage() {
       const formData = new FormData();
       formData.append("_subject", `ČELIK.rs – Nova ponuda: ${totalPanels} panela (${selectedSystemData?.name})`);
       formData.append("_captcha", "false");
-      formData.append("Širina terase (m)", width);
-      formData.append("Dužina terase (m)", length);
+      formData.append("Širina površine (m)", width);
+      formData.append("Dužina površine (m)", length);
       formData.append("Odabrani sistem", selectedSystemData?.name ?? "");
       formData.append("Broj panela", String(totalPanels));
       formData.append("Procenjena cena (EUR)", `€${totalPrice.toFixed(2)}`);
@@ -549,7 +549,7 @@ export default function CelikMainPage() {
           <div className="border border-zinc-200 rounded-none overflow-hidden">
             <img
               src="/wpc-paleta-ambijent.jpg"
-              alt="WPC Decking ambijentalni prikaz i logistika dostave"
+              alt="WPC modularni pod - ambijentalni prikaz i logistika dostave"
               className="w-full block object-cover object-center"
               style={{ maxHeight: "500px" }}
             />
@@ -683,7 +683,7 @@ export default function CelikMainPage() {
           ) : (
             <form onSubmit={handleModalSubmit} className="space-y-6">
               <div>
-                <Label className="text-zinc-900 font-semibold mb-2 block">Širina Terase (m) *</Label>
+                <Label className="text-zinc-900 font-semibold mb-2 block">Širina Površine (m) *</Label>
                 <Input
                   type="number"
                   step="0.1"
@@ -695,7 +695,7 @@ export default function CelikMainPage() {
               </div>
 
               <div>
-                <Label className="text-zinc-900 font-semibold mb-2 block">Dužina Terase (m) *</Label>
+                <Label className="text-zinc-900 font-semibold mb-2 block">Dužina Površine (m) *</Label>
                 <Input
                   type="number"
                   step="0.1"
@@ -723,7 +723,7 @@ export default function CelikMainPage() {
               </div>
 
               <div>
-                <Label className="text-zinc-900 font-semibold mb-2 block">Skica ili Slika Terase (opciono)</Label>
+                <Label className="text-zinc-900 font-semibold mb-2 block">Skica ili Slika Prostora (opciono)</Label>
                 <div className="border-2 border-dashed border-zinc-300 rounded-lg p-4 text-center cursor-pointer hover:border-blue-900 transition">
                   <input
                     type="file"
@@ -733,7 +733,7 @@ export default function CelikMainPage() {
                     id="sketch-upload"
                   />
                   <label htmlFor="sketch-upload" className="cursor-pointer block">
-                    <p className="text-sm text-zinc-600 font-medium">Pošaljite nam skicu ili sliku terase za 100% tačnu proveru</p>
+                    <p className="text-sm text-zinc-600 font-medium">Pošaljite nam skicu ili sliku prostora za 100% tačnu proveru</p>
                   </label>
                 </div>
                 {uploadedFile && (
