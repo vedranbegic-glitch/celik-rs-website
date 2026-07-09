@@ -26,6 +26,7 @@ export const SCRIPT_CONTENT = {
     scenarios: [
       {
         id: "SCEN-01",
+        slug: "eco-green",
         title: "ECO-GREEN MONOBLOK",
         useCase: "IDEALNO ZA: OTVORENE BAŠTE, KAFIĆE I RAVNE KROVOVE.",
         benefit: "Gotov fabrički panel sa integrisanom travom premium gustine. Podignut sistem omogućava konstantan protok vazduha i vode ispod poda, čime trajno sprečava zadržavanje vlage, buđ i neprijatne mirise.",
@@ -34,6 +35,7 @@ export const SCRIPT_CONTENT = {
       },
       {
         id: "SCEN-02",
+        slug: "gres-premium",
         title: "GRES-PREMIUM MONOBLOK",
         useCase: "IDEALNO ZA: AUTO-SALONE, IZLOŽBENE PROSTORE I ENTERIJERE.",
         benefit: "Kasetni panel sa ugrađenom visokootpornom granitnom keramikom. Spoljašnji čelični profil deluje kao monoblok ram koji trajno štiti ivice pločica od pucanja, dok akustična izolacija potpuno prigušuje eho.",
@@ -42,6 +44,7 @@ export const SCRIPT_CONTENT = {
       },
       {
         id: "SCEN-03",
+        slug: "heavy-duty",
         title: "HEAVY-DUTY MONOBLOK",
         useCase: "IDEALNO ZA: POGONE, RAMPE, ODVODE I TEHNIČKE STAZE.",
         benefit: "Ekstremno nosiv industrijski modul sa integrisanom toplocinkovanom rešetkom. Otvorena struktura omogućava da voda, sneg, blato i mulj odmah propadnu ispod nivoa poda, ostavljajući gaznu površinu uvek čistom.",
@@ -50,6 +53,7 @@ export const SCRIPT_CONTENT = {
       },
       {
         id: "SCEN-04",
+        slug: "wpc-compound",
         title: "WPC-COMPOUND MONOBLOK",
         useCase: "IDEALNO ZA: BAZENE, DVORIŠTA I KOMERCIJALNE PROSTORE.",
         benefit: "Premium panel sa ugrađenim WPC daskama punog profila. Donosi izgled drveta uz dugovečnost polimera. Pametni ram idealno kompenzuje mikromilimetarska širenja materijala na suncu, bez ikakvog godišnjeg održavanja.",
@@ -138,6 +142,7 @@ export const SCRIPT_CONTENT = {
 };
 
 import React, { useState, useEffect } from "react";
+import { Link } from "wouter";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -260,18 +265,36 @@ export default function CelikMainPage() {
           
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-2">
-            <button 
-              onClick={() => setIsModalOpen(true)}
-              className="bg-orange-600 hover:bg-orange-700 text-white font-black text-xs uppercase px-3 py-2 rounded-none transition-colors shadow-sm animate-cta-pulse"
+            <a
+              href="#proizvodi"
+              className="text-zinc-700 hover:text-orange-600 font-semibold text-xs uppercase px-3 py-2 transition-colors"
             >
-              {SCRIPT_CONTENT.navbar.btnCalculator}
-            </button>
+              Proizvodi
+            </a>
+            <a
+              href="#kako-radi"
+              className="text-zinc-700 hover:text-orange-600 font-semibold text-xs uppercase px-3 py-2 transition-colors"
+            >
+              Kako Radi
+            </a>
+            <a
+              href="#faq"
+              className="text-zinc-700 hover:text-orange-600 font-semibold text-xs uppercase px-3 py-2 transition-colors"
+            >
+              FAQ
+            </a>
             <a 
               href="#contact"
-              className="text-zinc-700 hover:text-blue-900 font-semibold text-xs uppercase px-3 py-2 transition-colors"
+              className="text-zinc-700 hover:text-orange-600 font-semibold text-xs uppercase px-3 py-2 transition-colors"
             >
               {SCRIPT_CONTENT.navbar.btnRequest}
             </a>
+            <button 
+              onClick={() => setIsModalOpen(true)}
+              className="bg-orange-600 hover:bg-orange-700 text-white font-black text-xs uppercase px-4 py-2 rounded-none transition-colors shadow-sm animate-cta-pulse ml-2"
+            >
+              {SCRIPT_CONTENT.navbar.btnCalculator}
+            </button>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -286,15 +309,27 @@ export default function CelikMainPage() {
         {/* Mobile Menu Overlay */}
         {mobileMenuOpen && (
           <div className="absolute top-full left-0 w-full bg-white shadow-lg z-50 transition-all duration-300 md:hidden border-t border-zinc-100">
-            <button 
-              onClick={() => {
-                setIsModalOpen(true);
-                setMobileMenuOpen(false);
-              }}
+            <a
+              href="#proizvodi"
+              onClick={() => setMobileMenuOpen(false)}
               className="block w-full text-left py-4 px-6 text-base font-medium text-zinc-900 hover:bg-zinc-50 border-b border-zinc-100 transition"
             >
-              {SCRIPT_CONTENT.navbar.btnCalculator}
-            </button>
+              Proizvodi
+            </a>
+            <a
+              href="#kako-radi"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block w-full text-left py-4 px-6 text-base font-medium text-zinc-900 hover:bg-zinc-50 border-b border-zinc-100 transition"
+            >
+              Kako Radi
+            </a>
+            <a
+              href="#faq"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block w-full text-left py-4 px-6 text-base font-medium text-zinc-900 hover:bg-zinc-50 border-b border-zinc-100 transition"
+            >
+              FAQ
+            </a>
             <button 
               onClick={() => {
                 setMobileMenuOpen(false);
@@ -303,6 +338,15 @@ export default function CelikMainPage() {
               className="block w-full text-left py-4 px-6 text-base font-medium text-zinc-900 hover:bg-zinc-50 border-b border-zinc-100 transition"
             >
               {SCRIPT_CONTENT.navbar.btnRequest}
+            </button>
+            <button 
+              onClick={() => {
+                setIsModalOpen(true);
+                setMobileMenuOpen(false);
+              }}
+              className="block w-full text-left py-4 px-6 text-base font-black uppercase text-orange-600 hover:bg-zinc-50 border-b border-zinc-100 transition"
+            >
+              {SCRIPT_CONTENT.navbar.btnCalculator}
             </button>
           </div>
         )}
@@ -440,7 +484,7 @@ export default function CelikMainPage() {
       </section>
 
       {/* MATRIX SECTION - 4 Cards Grid */}
-      <section className="bg-white py-16 md:py-24">
+      <section id="proizvodi" className="bg-white py-16 md:py-24">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-black tracking-normal text-zinc-900 mb-4">
@@ -459,12 +503,16 @@ export default function CelikMainPage() {
                   <div className="inline-block bg-blue-900/8 text-blue-900 px-3 py-1 rounded-none text-xs font-black uppercase mb-3 w-fit">
                     {scenario.badge}
                   </div>
-                  <h3 className="text-xl font-black text-zinc-900 mb-2 tracking-normal">{scenario.title}</h3>
-                  <p className="text-xs font-bold text-blue-800 mb-3 uppercase tracking-wide">{scenario.useCase}</p>
-                  <p className="text-zinc-600 text-sm leading-relaxed flex-1">{scenario.benefit}</p>
+                  <h3 className="text-xl font-black text-zinc-900 mb-4 tracking-normal">{scenario.title}</h3>
+                  <Link
+                    href={`/proizvod/${scenario.slug}`}
+                    className="text-sm font-bold text-orange-600 hover:text-orange-700 uppercase tracking-wide mb-5 inline-flex items-center gap-1 w-fit"
+                  >
+                    Više o proizvodu →
+                  </Link>
                   <button
                     onClick={() => setIsModalOpen(true)}
-                    className="mt-5 w-full bg-orange-600 hover:bg-orange-700 text-white font-black text-xs uppercase px-4 py-3 rounded-none transition-colors"
+                    className="mt-auto w-full bg-orange-600 hover:bg-orange-700 text-white font-black text-xs uppercase px-4 py-3 rounded-none transition-colors"
                   >
                     IZRAČUNAJ CENU
                   </button>
@@ -528,7 +576,7 @@ export default function CelikMainPage() {
       </section>
 
       {/* THREE STEPS SECTION */}
-      <section className="bg-zinc-50 py-16 md:py-24">
+      <section id="kako-radi" className="bg-zinc-50 py-16 md:py-24">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-black tracking-normal text-zinc-900 mb-12 text-center">
             {SCRIPT_CONTENT.threeSteps.heading}
@@ -619,7 +667,7 @@ export default function CelikMainPage() {
       </section>
 
       {/* FAQ SECTION */}
-      <section className="bg-zinc-50 py-16 md:py-24">
+      <section id="faq" className="bg-zinc-50 py-16 md:py-24">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-black tracking-normal text-zinc-900 mb-12 text-center">
             {SCRIPT_CONTENT.faq.heading}
