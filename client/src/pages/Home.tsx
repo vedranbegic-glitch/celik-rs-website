@@ -22,7 +22,7 @@ export const SCRIPT_CONTENT = {
   ],
   matrix: {
     heading: "Jedna Matrica. Sve Moguće Završne Obloge.",
-    subheading: "Izaberite savršen finiš za Vaš pod — terasu, dvorište, prostor oko bazena ili enterijer. Sve leži na istoj modularnoj mreži:",
+    subheading: "Izaberite završnu obradu. Sistem ostaje isti.",
     scenarios: [
       {
         id: "SCEN-01",
@@ -31,7 +31,43 @@ export const SCRIPT_CONTENT = {
         useCase: "IDEALNO ZA: OTVORENE BAŠTE, KAFIĆE I RAVNE KROVOVE.",
         benefit: "Gotov fabrički panel sa integrisanom travom premium gustine. Podignut sistem omogućava konstantan protok vazduha i vode ispod poda, čime trajno sprečava zadržavanje vlage, buđ i neprijatne mirise.",
         badge: "ZELENA OAZA",
-        imgUrl: "/eco-green.jpg",
+        variants: [
+          { img: "/eco-green-1.jpg", label: "Stepping Stone Grid" },
+          { img: "/eco-green-2.jpg", label: "Zen Moss" },
+          { img: "/eco-green-3.jpg", label: "Natural Grass" },
+        ],
+        detail: {
+          tagline: "Zelena površina koja ostaje takva godinama.",
+          blocks: [
+            { type: "paragraph", text: "Neke površine izgledaju dobro samo na početku." },
+            { type: "paragraph", text: "Posle prve zime pojavljuju se neravnine. Posle jače kiše voda ostaje zarobljena ispod trave." },
+            { type: "paragraph", text: "Vremenom dolaze vlaga, buđ i neprijatni mirisi — i prostor polako gubi svoj kvalitet." },
+            { type: "paragraph", text: "ECO-GREEN MONOBLOK je razvijen da se to nikada ne dogodi.", bold: true },
+            { type: "paragraph", text: "Ovo nije samo završna obloga. Ovo je kompletan, inženjerski osmišljen podni sistem." },
+            { type: "divider" },
+            { type: "heading", text: "Kako funkcioniše" },
+            { type: "paragraph", text: "U osnovi sistema nalazi se čvrsta modularna podkonstrukcija sa podesivim nivelirajućim stopama, koja omogućava savršeno ravnu površinu — bez obzira na stanje postojeće podloge." },
+            { type: "paragraph", text: "Iznad nje se nalazi perforirani metalni sloj velike nosivosti koji:" },
+            { type: "bullets", items: ["ravnomerno raspoređuje opterećenje", "omogućava nesmetan prolaz vode"] },
+            { type: "paragraph", text: "Kišnica prolazi direktno kroz sistem i odvodi se ispod njega." },
+            { type: "paragraph", text: "Istovremeno, prirodna cirkulacija vazduha omogućava brzo sušenje prostora ispod završne obloge — čime se značajno smanjuje mogućnost pojave vlage, buđi i neprijatnih mirisa." },
+            { type: "divider" },
+            { type: "emphasis", lines: ["To nije detalj.", "To je razlika između sistema koji izgleda dobro prve godine i sistema koji izgleda dobro godinama."] },
+            { type: "divider" },
+            { type: "paragraph", text: "Kada jednom završite svoj prostor, želite da ga koristite. Ne da razmišljate šta se dešava ispod njega." },
+            { type: "divider" },
+            { type: "heading", text: "Zašto ECO-GREEN MONOBLOK" },
+            { type: "bullets", items: [
+              "Premium veštačka trava prirodnog izgleda",
+              "Perforirani metalni sloj velike nosivosti",
+              "Efikasno i brzo odvođenje vode",
+              "Prirodna ventilacija ispod sistema",
+              "Smanjena mogućnost pojave vlage, buđi i neprijatnih mirisa",
+              "Precizna nivelacija pomoću podesivih stopa",
+              "Modularna konstrukcija za dug vek trajanja",
+            ] },
+          ],
+        },
       },
       {
         id: "SCEN-02",
@@ -40,7 +76,38 @@ export const SCRIPT_CONTENT = {
         useCase: "IDEALNO ZA: AUTO-SALONE, IZLOŽBENE PROSTORE I ENTERIJERE.",
         benefit: "Kasetni panel sa ugrađenom visokootpornom granitnom keramikom. Spoljašnji čelični profil deluje kao monoblok ram koji trajno štiti ivice pločica od pucanja, dok akustična izolacija potpuno prigušuje eho.",
         badge: "VRHUNSKI LUKSUZ",
-        imgUrl: "/gres-premium.jpg",
+        variants: [
+          { img: "/gres-premium-1.jpg", label: "Black Marble – Nero Edition" },
+          { img: "/gres-premium-2.jpg", label: "Slate – Graphite Grey" },
+          { img: "/gres-premium-3.jpg", label: "Travertine – Luxury Beige" },
+        ],
+        detail: {
+          tagline: "Keramika kojoj nije potreban kompromis.",
+          blocks: [
+            { type: "paragraph", text: "Vrhunske porcelanske ploče zaslužuju jednako kvalitetnu osnovu." },
+            { type: "paragraph", text: "Kod klasične ugradnje najveći problemi nastaju upravo ispod površine." },
+            { type: "bullets", items: ["Lepak stari", "Fuge pucaju", "Voda pronalazi put", "Popravke postaju neizbežne"] },
+            { type: "paragraph", text: "GRES MONOBLOK razvijen je potpuno drugačijom logikom.", bold: true },
+            { type: "divider" },
+            { type: "heading", text: "Kako funkcioniše" },
+            { type: "paragraph", text: "Porcelanske gres ploče postavljaju se na modularnu metalnu podkonstrukciju pomoću suvog sistema montaže." },
+            { type: "bullets", items: ["Bez lepkova", "Bez cementa", "Bez nepotrebnih komplikacija"] },
+            { type: "paragraph", text: "Voda slobodno prolazi između ploča i odvodi se ispod sistema, dok prirodna ventilacija omogućava brzo sušenje cele konstrukcije." },
+            { type: "paragraph", text: "Ako je potrebno pristupiti instalacijama ili izvršiti održavanje, pojedinačne ploče mogu se skinuti — bez razbijanja cele površine." },
+            { type: "divider" },
+            { type: "emphasis", lines: ["To nije samo drugačiji način postavljanja.", "To je pametnije rešenje."] },
+            { type: "divider" },
+            { type: "heading", text: "Zašto GRES MONOBLOK" },
+            { type: "bullets", items: [
+              "Suva montaža",
+              "Efikasna drenaža",
+              "Prirodna ventilacija",
+              "Savršena nivelacija",
+              "Jednostavno održavanje",
+              "Dugotrajna stabilnost",
+            ] },
+          ],
+        },
       },
       {
         id: "SCEN-03",
@@ -49,7 +116,36 @@ export const SCRIPT_CONTENT = {
         useCase: "IDEALNO ZA: POGONE, RAMPE, ODVODE I TEHNIČKE STAZE.",
         benefit: "Ekstremno nosiv industrijski modul sa integrisanom toplocinkovanom rešetkom. Otvorena struktura omogućava da voda, sneg, blato i mulj odmah propadnu ispod nivoa poda, ostavljajući gaznu površinu uvek čistom.",
         badge: "INDUSTRIJSKA ČVRSTOĆA",
-        imgUrl: "/heavy-duty.jpg",
+        variants: [
+          { img: "/heavy-duty-1.jpg", label: "Inox Grating – Linear" },
+          { img: "/heavy-duty-2.jpg", label: "Industrial Grid – Safety Yellow" },
+          { img: "/heavy-duty-3.jpg", label: "Aluminum Plate – Checker" },
+        ],
+        detail: {
+          tagline: "Projektovan kada pouzdanost nema alternativu.",
+          blocks: [
+            { type: "paragraph", text: "Postoje sistemi namenjeni svakodnevnoj upotrebi. A postoje sistemi projektovani da podnesu mnogo više." },
+            { type: "paragraph", text: "HEAVY-DUTY MONOBLOK razvijen je za prostore u kojima su velika opterećenja, sigurnost i stabilnost osnovni zahtevi.", bold: true },
+            { type: "divider" },
+            { type: "heading", text: "Kako funkcioniše" },
+            { type: "paragraph", text: "Masivna modularna konstrukcija ravnomerno raspoređuje opterećenje i omogućava formiranje stabilnih platformi — čak i na zahtevnim podlogama." },
+            { type: "paragraph", text: "Otvorena rešetkasta površina omogućava brzo odvođenje vode, prljavštine i drugih tečnosti, čime se povećava bezbednost i olakšava održavanje." },
+            { type: "divider" },
+            { type: "heading", text: "Kada je pouzdanost ključna" },
+            { type: "paragraph", text: "Osnova postaje najvažniji deo sistema." },
+            { type: "paragraph", text: "Upravo zato je HEAVY-DUTY MONOBLOK projektovan da traje." },
+            { type: "divider" },
+            { type: "heading", text: "Zašto HEAVY-DUTY MONOBLOK" },
+            { type: "bullets", items: [
+              "Velika nosivost",
+              "Stabilna modularna konstrukcija",
+              "Efikasna drenaža",
+              "Visoka otpornost",
+              "Minimalno održavanje",
+              "Dug vek trajanja",
+            ] },
+          ],
+        },
       },
       {
         id: "SCEN-04",
@@ -58,7 +154,38 @@ export const SCRIPT_CONTENT = {
         useCase: "IDEALNO ZA: BAZENE, DVORIŠTA I KOMERCIJALNE PROSTORE.",
         benefit: "Premium panel sa ugrađenim WPC daskama punog profila. Donosi izgled drveta uz dugovečnost polimera. Pametni ram idealno kompenzuje mikromilimetarska širenja materijala na suncu, bez ikakvog godišnjeg održavanja.",
         badge: "PRIRODNA TOPLINA",
-        imgUrl: "/decking-compound.jpg",
+        variants: [
+          { img: "/wpc-compound-1.jpg", label: "WPC – Teak Brown" },
+          { img: "/wpc-compound-2.jpg", label: "WPC – Dark Walnut" },
+          { img: "/wpc-compound-3.jpg", label: "WPC – Natural Oak" },
+        ],
+        detail: {
+          tagline: "Toplina drveta. Bez njegovih slabosti.",
+          blocks: [
+            { type: "paragraph", text: "Drvo je oduvek simbol topline i prirodne lepote." },
+            { type: "paragraph", text: "Ali ono što izgleda lepo prvog dana često zahteva godine održavanja." },
+            { type: "bullets", items: ["Brušenje", "Lakiranje", "Zaštitni premazi", "Popravke"] },
+            { type: "paragraph", text: "WPC PREMIUM zadržava izgled drveta, ali eliminiše većinu brige koju prirodno drvo nosi sa sobom.", bold: true },
+            { type: "divider" },
+            { type: "heading", text: "Kako funkcioniše" },
+            { type: "paragraph", text: "Modularna metalna podkonstrukcija pruža stabilnu osnovu svakom elementu dekinga, dok podesive nivelirajuće stope omogućavaju precizno nivelisanje — čak i na neravnim podlogama." },
+            { type: "paragraph", text: "Otvoren prostor ispod završne obloge omogućava prirodnu ventilaciju i nesmetan prolaz vode, pa sistem ostaje suv i stabilan tokom cele godine." },
+            { type: "divider" },
+            { type: "heading", text: "Rezultat" },
+            { type: "paragraph", text: "Ovo nije imitacija drveta." },
+            { type: "paragraph", text: "Ovo je prostor koji izgleda prirodno i projektovan je da traje." },
+            { type: "divider" },
+            { type: "heading", text: "Zašto WPC PREMIUM" },
+            { type: "bullets", items: [
+              "Prirodan izgled drveta",
+              "Metalna podkonstrukcija velike stabilnosti",
+              "Prirodna ventilacija",
+              "Efikasna drenaža",
+              "Minimalno održavanje",
+              "Dug vek trajanja",
+            ] },
+          ],
+        },
       },
     ],
   },
@@ -180,6 +307,48 @@ const SYSTEM_OPTIONS = [
   { id: "sys-wpc-1000", name: "WPC Kompozit (1.0m × 1.0m)", price: 220, moduleSize: 1.0 },
   { id: "sys-eco-1000", name: "Eco-Green Trava (1.0m × 1.0m)", price: 165, moduleSize: 1.0 },
 ];
+
+function ImageSlider({ variants }: { variants: { img: string; label: string }[] }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    if (variants.length <= 1) return;
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % variants.length);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [variants.length]);
+
+  return (
+    <div className="relative h-56 bg-zinc-200 overflow-hidden">
+      {variants.map((variant, idx) => (
+        <div
+          key={variant.img}
+          className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000"
+          style={{
+            backgroundImage: `url('${variant.img}')`,
+            opacity: idx === activeIndex ? 1 : 0,
+          }}
+        ></div>
+      ))}
+      <div className="absolute bottom-3 left-0 w-full flex items-center justify-center gap-2">
+        {variants.map((variant, idx) => (
+          <span
+            key={variant.img}
+            className={`h-1.5 rounded-none transition-all ${
+              idx === activeIndex ? "w-6 bg-white" : "w-1.5 bg-white/50"
+            }`}
+          ></span>
+        ))}
+      </div>
+      <div className="absolute bottom-7 left-0 w-full text-center">
+        <span className="bg-black/50 text-white text-[11px] font-semibold px-2 py-1">
+          {variants[activeIndex].label}
+        </span>
+      </div>
+    </div>
+  );
+}
 
 export default function CelikMainPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -498,7 +667,7 @@ export default function CelikMainPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {SCRIPT_CONTENT.matrix.scenarios.map((scenario) => (
               <div key={scenario.id} className="bg-zinc-50 border border-zinc-200 rounded-none overflow-hidden hover:shadow-lg transition-shadow flex flex-col">
-                <div className="h-56 bg-cover bg-center bg-zinc-200" style={{ backgroundImage: `url('${scenario.imgUrl}')` }}></div>
+                <ImageSlider variants={scenario.variants} />
                 <div className="p-6 flex flex-col flex-1">
                   <div className="inline-block bg-blue-900/8 text-blue-900 px-3 py-1 rounded-none text-xs font-black uppercase mb-3 w-fit">
                     {scenario.badge}
