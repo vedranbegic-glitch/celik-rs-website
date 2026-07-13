@@ -324,6 +324,70 @@ const SYSTEM_OPTIONS = [
   { id: "sys-wpc-oak", name: "WPC-Compound – Natural Oak (1.0m × 1.0m)", price: 100, moduleSize: 1.0, category: "wpc-compound" },
 ];
 
+// Hero slider images — order is required/fixed.
+const HERO_SLIDER_IMAGES = [
+  "/hero-glavna-1.jpg",
+  "/hero-glavna-2.jpg",
+  "/hero-glavna-3.jpg",
+  "/hero-glavna-4.jpg",
+];
+
+function HeroSlider({ onCtaClick }: { onCtaClick: () => void }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % HERO_SLIDER_IMAGES.length);
+    }, 5500);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="relative w-full h-screen overflow-hidden">
+      {/* Background images — smooth fade only, no slide */}
+      {HERO_SLIDER_IMAGES.map((src, idx) => (
+        <div
+          key={src}
+          className="absolute inset-0 transition-opacity duration-[1500ms] ease-in-out"
+          style={{
+            backgroundImage: `url('${src}')`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            opacity: idx === activeIndex ? 1 : 0,
+          }}
+        />
+      ))}
+
+      {/* Directional dark gradient overlay, left to right */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0.05) 70%, rgba(0,0,0,0) 100%)",
+        }}
+      />
+
+      {/* Fixed content — does not change between slides */}
+      <div className="absolute left-0 top-[45%] -translate-y-1/2 z-10 px-6 md:px-16 lg:px-24 w-full">
+        <div className="max-w-[520px]">
+          <h1 className="text-4xl md:text-6xl font-black tracking-normal text-white leading-tight mb-4">
+            Jedan sistem. Bezbroj mogućnosti.
+          </h1>
+          <p className="text-base md:text-lg text-white/80 font-medium mb-8">
+            Modularni podni sistem
+          </p>
+          <button
+            onClick={onCtaClick}
+            className="bg-orange-600 hover:bg-orange-700 text-white font-black text-sm uppercase px-10 py-4 rounded-none shadow-xl transition-colors animate-cta-pulse"
+          >
+            IZRAČUNAJ CENU ZA 30 SEKUNDI
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ImageSlider({ variants }: { variants: { img: string; label: string }[] }) {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -540,37 +604,8 @@ export default function CelikMainPage() {
         )}
       </nav>
 
-      {/* HERO SECTION - Full screen background */}
-      <div
-        className="w-full min-h-screen flex items-center justify-center relative"
-        style={{
-          backgroundImage: "url('/hero-glavna.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/55"></div>
-
-        {/* Content */}
-        <div className="relative z-10 w-full max-w-4xl mx-auto text-center px-6 py-24">
-          <span className="block text-xs font-black text-white/80 tracking-widest uppercase mb-6">
-            SISTEM GOTOVIH FABRIČKI SKLOPLJENIH MONOBLOK PANELA
-          </span>
-          <h1 className="text-4xl md:text-6xl font-black tracking-normal text-white mb-6 leading-tight">
-            Jedan sistem. Bezbroj mogućnosti.
-          </h1>
-          <p className="text-base md:text-lg text-white/85 max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
-            Sistem gotovih fabrički sklopljenih monoblok panela. Instalacija za 15 minuta. Bez alata, bez šrafova i bez prljanja. Investirajte jednom, rešite podlogu zauvek.
-          </p>
-          <button
-            onClick={() => { setFilterCategory(null); setIsModalOpen(true); }}
-            className="bg-orange-600 hover:bg-orange-700 text-white font-black text-sm uppercase px-10 py-4 rounded-none shadow-xl transition-colors animate-cta-pulse"
-          >
-            IZRAČUNAJ CENU ZA 30 SEKUNDI
-          </button>
-        </div>
-      </div>
+      {/* HERO SECTION - Auto-playing fade slider, fixed left-aligned text */}
+      <HeroSlider onCtaClick={() => { setFilterCategory(null); setIsModalOpen(true); }} />
 
       {/* PRIMENA SECTION */}
       <section className="bg-white py-16 md:py-24">
