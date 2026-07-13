@@ -320,16 +320,15 @@ function ImageSlider({ variants }: { variants: { img: string; label: string }[] 
   }, [variants.length]);
 
   return (
-    <div className="relative h-56 bg-zinc-200 overflow-hidden">
+    <div className="relative h-56 bg-neutral-100 overflow-hidden">
       {variants.map((variant, idx) => (
-        <div
+        <img
           key={variant.img}
-          className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000"
-          style={{
-            backgroundImage: `url('${variant.img}')`,
-            opacity: idx === activeIndex ? 1 : 0,
-          }}
-        ></div>
+          src={variant.img}
+          alt={variant.label}
+          className="absolute inset-0 w-full h-full object-contain transition-opacity duration-1000"
+          style={{ opacity: idx === activeIndex ? 1 : 0 }}
+        />
       ))}
       <div className="absolute bottom-3 left-0 w-full flex items-center justify-center gap-2">
         {variants.map((variant, idx) => (
