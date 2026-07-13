@@ -301,20 +301,28 @@ function FAQAccordion({ question, answer }: { question: string; answer: string }
   );
 }
 
-// System options for calculator
+// System options for calculator — one entry per individual product variant.
+// PLACEHOLDER PRICING: all set to €100 for now — real prices to be added later.
+// `category` matches the matrix scenario slug, used to filter the list when
+// a specific scenario's CTA is clicked.
 const SYSTEM_OPTIONS = [
-  { id: "sys-ceramic-1000", name: "Premium Keramika (1.0m × 1.0m)", price: 185, moduleSize: 1.0 },
-  { id: "sys-wpc-1000", name: "WPC Kompozit (1.0m × 1.0m)", price: 220, moduleSize: 1.0 },
-  { id: "sys-eco-1000", name: "Eco-Green Trava (1.0m × 1.0m)", price: 165, moduleSize: 1.0 },
+  // Eco-Green Monoblok (1.0m × 1.0m)
+  { id: "sys-eco-stepping", name: "Eco-Green – Stepping Stone Grid (1.0m × 1.0m)", price: 100, moduleSize: 1.0, category: "eco-green" },
+  { id: "sys-eco-zen", name: "Eco-Green – Zen Moss (1.0m × 1.0m)", price: 100, moduleSize: 1.0, category: "eco-green" },
+  { id: "sys-eco-natural", name: "Eco-Green – Natural Grass (1.0m × 1.0m)", price: 100, moduleSize: 1.0, category: "eco-green" },
+  // Gres-Premium Monoblok (1.2m × 1.2m)
+  { id: "sys-gres-black", name: "Gres-Premium – Black Marble Nero Edition (1.2m × 1.2m)", price: 100, moduleSize: 1.2, category: "gres-premium" },
+  { id: "sys-gres-slate", name: "Gres-Premium – Slate Graphite Grey (1.2m × 1.2m)", price: 100, moduleSize: 1.2, category: "gres-premium" },
+  { id: "sys-gres-travertine", name: "Gres-Premium – Travertine Luxury Beige (1.2m × 1.2m)", price: 100, moduleSize: 1.2, category: "gres-premium" },
+  // Heavy-Duty Monoblok (1.0m × 1.0m)
+  { id: "sys-hd-inox", name: "Heavy-Duty – Inox Grating Linear (1.0m × 1.0m)", price: 100, moduleSize: 1.0, category: "heavy-duty" },
+  { id: "sys-hd-industrial", name: "Heavy-Duty – Industrial Grid Safety Yellow (1.0m × 1.0m)", price: 100, moduleSize: 1.0, category: "heavy-duty" },
+  { id: "sys-hd-aluminum", name: "Heavy-Duty – Aluminum Plate Checker (1.0m × 1.0m)", price: 100, moduleSize: 1.0, category: "heavy-duty" },
+  // WPC-Compound Monoblok (1.0m × 1.0m)
+  { id: "sys-wpc-teak", name: "WPC-Compound – Teak Brown (1.0m × 1.0m)", price: 100, moduleSize: 1.0, category: "wpc-compound" },
+  { id: "sys-wpc-walnut", name: "WPC-Compound – Dark Walnut (1.0m × 1.0m)", price: 100, moduleSize: 1.0, category: "wpc-compound" },
+  { id: "sys-wpc-oak", name: "WPC-Compound – Natural Oak (1.0m × 1.0m)", price: 100, moduleSize: 1.0, category: "wpc-compound" },
 ];
-
-// Maps a matrix scenario (finishing type) to its matching calculator system,
-// so clicking a scenario's CTA can pre-select / narrow the calculator to it.
-const SCENARIO_SYSTEM_MAP: Record<string, string> = {
-  "eco-green": "sys-eco-1000",
-  "gres-premium": "sys-ceramic-1000",
-  "wpc-compound": "sys-wpc-1000",
-};
 
 function ImageSlider({ variants }: { variants: { img: string; label: string }[] }) {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -364,14 +372,15 @@ export default function CelikMainPage() {
   const [width, setWidth] = useState("");
   const [length, setLength] = useState("");
   const [selectedSystem, setSelectedSystem] = useState("");
-  const [filterSystemId, setFilterSystemId] = useState<string | null>(null);
+  const [filterCategory, setFilterCategory] = useState<string | null>(null);
   const [confirmationMessage, setConfirmationMessage] = useState("");
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
 
-  // Calculate total panels using exact formula: totalPanels = Math.ceil((width * length) / (1.0 * 1.0))
+  // Calculate total panels using each product's actual module size (m x m)
   const selectedSystemData = SYSTEM_OPTIONS.find((s) => s.id === selectedSystem);
+  const moduleSize = selectedSystemData?.moduleSize || 1.0;
   const totalPanels = selectedSystemData && width && length
-    ? Math.ceil((parseFloat(width) * parseFloat(length)) / (1.0 * 1.0))
+    ? Math.ceil((parseFloat(width) * parseFloat(length)) / (moduleSize * moduleSize))
     : 0;
   const totalPrice = totalPanels * (selectedSystemData?.price || 0);
 
@@ -415,7 +424,7 @@ export default function CelikMainPage() {
 
       setTimeout(() => {
         setIsModalOpen(false);
-        setFilterSystemId(null);
+        setFilterCategory(null);
         setWidth("");
         setLength("");
         setSelectedSystem("");
@@ -468,7 +477,7 @@ export default function CelikMainPage() {
               {SCRIPT_CONTENT.navbar.btnRequest}
             </a>
             <button 
-              onClick={() => { setFilterSystemId(null); setIsModalOpen(true); }}
+              onClick={() => { setFilterCategory(null); setIsModalOpen(true); }}
               className="bg-orange-600 hover:bg-orange-700 text-white font-black text-xs uppercase px-4 py-2 rounded-none transition-colors shadow-sm animate-cta-pulse ml-2"
             >
               {SCRIPT_CONTENT.navbar.btnCalculator}
@@ -519,7 +528,7 @@ export default function CelikMainPage() {
             </button>
             <button 
               onClick={() => {
-                setFilterSystemId(null);
+                setFilterCategory(null);
                 setIsModalOpen(true);
                 setMobileMenuOpen(false);
               }}
@@ -555,7 +564,7 @@ export default function CelikMainPage() {
             Sistem gotovih fabrički sklopljenih monoblok panela. Instalacija za 15 minuta. Bez alata, bez šrafova i bez prljanja. Investirajte jednom, rešite podlogu zauvek.
           </p>
           <button
-            onClick={() => { setFilterSystemId(null); setIsModalOpen(true); }}
+            onClick={() => { setFilterCategory(null); setIsModalOpen(true); }}
             className="bg-orange-600 hover:bg-orange-700 text-white font-black text-sm uppercase px-10 py-4 rounded-none shadow-xl transition-colors animate-cta-pulse"
           >
             IZRAČUNAJ CENU ZA 30 SEKUNDI
@@ -691,9 +700,8 @@ export default function CelikMainPage() {
                   </Link>
                   <button
                     onClick={() => {
-                      const sysId = SCENARIO_SYSTEM_MAP[scenario.slug];
-                      setFilterSystemId(sysId ?? null);
-                      setSelectedSystem(sysId ?? "");
+                      setFilterCategory(scenario.slug);
+                      setSelectedSystem("");
                       setIsModalOpen(true);
                     }}
                     className="mt-auto w-full bg-orange-600 hover:bg-orange-700 text-white font-black text-xs uppercase px-4 py-3 rounded-none transition-colors"
@@ -749,7 +757,7 @@ export default function CelikMainPage() {
                 </div>
               </div>
               <button
-                onClick={() => { setFilterSystemId(null); setIsModalOpen(true); }}
+                onClick={() => { setFilterCategory(null); setIsModalOpen(true); }}
                 className="bg-orange-600 hover:bg-orange-700 text-white font-black text-xs uppercase px-6 py-3 rounded-none transition-colors"
               >
                 SAZNAJ CENU
@@ -874,7 +882,7 @@ export default function CelikMainPage() {
             {SCRIPT_CONTENT.ctaBottom.text}
           </p>
           <button 
-            onClick={() => { setFilterSystemId(null); setIsModalOpen(true); }}
+            onClick={() => { setFilterCategory(null); setIsModalOpen(true); }}
             className="bg-orange-600 hover:bg-orange-700 text-white font-black text-sm uppercase px-6 py-3 rounded-none transition-colors shadow-lg"
           >
             {SCRIPT_CONTENT.ctaBottom.btnCalc}
@@ -893,16 +901,19 @@ export default function CelikMainPage() {
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/60 z-[999] flex items-center justify-center p-4 overflow-y-auto">
           <div className="bg-white rounded-none w-full max-w-md shadow-2xl border border-zinc-200 p-6 my-auto">
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between mb-2">
             <h2 className="text-2xl font-black text-zinc-900 tracking-normal">Brzi Proračun Cene</h2>
             <button
-              onClick={() => { setIsModalOpen(false); setFilterSystemId(null); }}
+              onClick={() => { setIsModalOpen(false); setFilterCategory(null); }}
               className="w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 rounded transition-colors text-lg font-bold"
               aria-label="Zatvori"
             >
               ✕
             </button>
           </div>
+          <p className="text-xs font-semibold text-blue-800 mb-6">
+            Plaćanje se isključivo vrši u dinarima (RSD), po srednjem kursu NBS na dan uplate.
+          </p>
 
           {confirmationMessage ? (
             <div className="py-8 text-center">
@@ -939,26 +950,26 @@ export default function CelikMainPage() {
               </div>
 
               <div>
-                <Label className="text-zinc-900 font-semibold mb-2 block">Odaberite Sistem *</Label>
+                <Label className="text-zinc-900 font-semibold mb-2 block">Odaberite Proizvod *</Label>
                 <Select value={selectedSystem} onValueChange={setSelectedSystem}>
                   <SelectTrigger className="border-zinc-300 rounded-none">
-                    <SelectValue placeholder="Odaberite sistem..." />
+                    <SelectValue placeholder="Odaberite proizvod..." />
                   </SelectTrigger>
                   <SelectContent>
-                    {(filterSystemId ? SYSTEM_OPTIONS.filter((sys) => sys.id === filterSystemId) : SYSTEM_OPTIONS).map((sys) => (
+                    {(filterCategory ? SYSTEM_OPTIONS.filter((sys) => sys.category === filterCategory) : SYSTEM_OPTIONS).map((sys) => (
                       <SelectItem key={sys.id} value={sys.id}>
-                        {sys.name} - €{sys.price}/kom
+                        {sys.name}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
-                {filterSystemId && (
+                {filterCategory && (
                   <button
                     type="button"
-                    onClick={() => setFilterSystemId(null)}
+                    onClick={() => setFilterCategory(null)}
                     className="text-xs text-blue-900 font-semibold mt-2 hover:underline"
                   >
-                    Prikaži sve sisteme
+                    Prikaži sve proizvode
                   </button>
                 )}
               </div>
@@ -987,6 +998,9 @@ export default function CelikMainPage() {
                   <p className="text-sm text-zinc-600 mb-2">Procenjena Vrednost:</p>
                   <p className="text-2xl font-black text-blue-900 tracking-normal">
                     {totalPanels} panela × €{selectedSystemData?.price} = €{totalPrice.toFixed(2)}
+                  </p>
+                  <p className="text-xs text-zinc-500 mt-3">
+                    Napomena: Proračun je informativan jer radimo projekte po meri. Finalnu ponudu i broj blokova definisaćemo kroz tehnički crtež.
                   </p>
                 </div>
               )}
