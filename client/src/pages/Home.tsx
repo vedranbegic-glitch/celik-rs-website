@@ -308,6 +308,14 @@ const SYSTEM_OPTIONS = [
   { id: "sys-eco-1000", name: "Eco-Green Trava (1.0m × 1.0m)", price: 165, moduleSize: 1.0 },
 ];
 
+// Maps a matrix scenario (finishing type) to its matching calculator system,
+// so clicking a scenario's CTA can pre-select / narrow the calculator to it.
+const SCENARIO_SYSTEM_MAP: Record<string, string> = {
+  "eco-green": "sys-eco-1000",
+  "gres-premium": "sys-ceramic-1000",
+  "wpc-compound": "sys-wpc-1000",
+};
+
 function ImageSlider({ variants }: { variants: { img: string; label: string }[] }) {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -320,13 +328,13 @@ function ImageSlider({ variants }: { variants: { img: string; label: string }[] 
   }, [variants.length]);
 
   return (
-    <div className="relative h-56 bg-neutral-100 overflow-hidden">
+    <div className="relative w-full aspect-[4/3] bg-neutral-100 overflow-hidden">
       {variants.map((variant, idx) => (
         <img
           key={variant.img}
           src={variant.img}
           alt={variant.label}
-          className="absolute inset-0 w-full h-full object-contain transition-opacity duration-1000"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
           style={{ opacity: idx === activeIndex ? 1 : 0 }}
         />
       ))}
@@ -356,6 +364,7 @@ export default function CelikMainPage() {
   const [width, setWidth] = useState("");
   const [length, setLength] = useState("");
   const [selectedSystem, setSelectedSystem] = useState("");
+  const [filterSystemId, setFilterSystemId] = useState<string | null>(null);
   const [confirmationMessage, setConfirmationMessage] = useState("");
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
 
@@ -406,6 +415,7 @@ export default function CelikMainPage() {
 
       setTimeout(() => {
         setIsModalOpen(false);
+        setFilterSystemId(null);
         setWidth("");
         setLength("");
         setSelectedSystem("");
@@ -458,7 +468,7 @@ export default function CelikMainPage() {
               {SCRIPT_CONTENT.navbar.btnRequest}
             </a>
             <button 
-              onClick={() => setIsModalOpen(true)}
+              onClick={() => { setFilterSystemId(null); setIsModalOpen(true); }}
               className="bg-orange-600 hover:bg-orange-700 text-white font-black text-xs uppercase px-4 py-2 rounded-none transition-colors shadow-sm animate-cta-pulse ml-2"
             >
               {SCRIPT_CONTENT.navbar.btnCalculator}
@@ -509,6 +519,7 @@ export default function CelikMainPage() {
             </button>
             <button 
               onClick={() => {
+                setFilterSystemId(null);
                 setIsModalOpen(true);
                 setMobileMenuOpen(false);
               }}
@@ -544,7 +555,7 @@ export default function CelikMainPage() {
             Sistem gotovih fabrički sklopljenih monoblok panela. Instalacija za 15 minuta. Bez alata, bez šrafova i bez prljanja. Investirajte jednom, rešite podlogu zauvek.
           </p>
           <button
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => { setFilterSystemId(null); setIsModalOpen(true); }}
             className="bg-orange-600 hover:bg-orange-700 text-white font-black text-sm uppercase px-10 py-4 rounded-none shadow-xl transition-colors animate-cta-pulse"
           >
             IZRAČUNAJ CENU ZA 30 SEKUNDI
@@ -679,10 +690,15 @@ export default function CelikMainPage() {
                     Više o proizvodu →
                   </Link>
                   <button
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={() => {
+                      const sysId = SCENARIO_SYSTEM_MAP[scenario.slug];
+                      setFilterSystemId(sysId ?? null);
+                      setSelectedSystem(sysId ?? "");
+                      setIsModalOpen(true);
+                    }}
                     className="mt-auto w-full bg-orange-600 hover:bg-orange-700 text-white font-black text-xs uppercase px-4 py-3 rounded-none transition-colors"
                   >
-                    IZRAČUNAJ CENU
+                    IZRAČUNAJ CENU ZA 30 SEKUNDI
                   </button>
                 </div>
               </div>
@@ -733,7 +749,7 @@ export default function CelikMainPage() {
                 </div>
               </div>
               <button
-                onClick={() => setIsModalOpen(true)}
+                onClick={() => { setFilterSystemId(null); setIsModalOpen(true); }}
                 className="bg-orange-600 hover:bg-orange-700 text-white font-black text-xs uppercase px-6 py-3 rounded-none transition-colors"
               >
                 SAZNAJ CENU
@@ -858,7 +874,7 @@ export default function CelikMainPage() {
             {SCRIPT_CONTENT.ctaBottom.text}
           </p>
           <button 
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => { setFilterSystemId(null); setIsModalOpen(true); }}
             className="bg-orange-600 hover:bg-orange-700 text-white font-black text-sm uppercase px-6 py-3 rounded-none transition-colors shadow-lg"
           >
             {SCRIPT_CONTENT.ctaBottom.btnCalc}
@@ -880,7 +896,7 @@ export default function CelikMainPage() {
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-black text-zinc-900 tracking-normal">Brzi Proračun Cene</h2>
             <button
-              onClick={() => setIsModalOpen(false)}
+              onClick={() => { setIsModalOpen(false); setFilterSystemId(null); }}
               className="w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 rounded transition-colors text-lg font-bold"
               aria-label="Zatvori"
             >
@@ -929,13 +945,22 @@ export default function CelikMainPage() {
                     <SelectValue placeholder="Odaberite sistem..." />
                   </SelectTrigger>
                   <SelectContent>
-                    {SYSTEM_OPTIONS.map((sys) => (
+                    {(filterSystemId ? SYSTEM_OPTIONS.filter((sys) => sys.id === filterSystemId) : SYSTEM_OPTIONS).map((sys) => (
                       <SelectItem key={sys.id} value={sys.id}>
                         {sys.name} - €{sys.price}/kom
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
+                {filterSystemId && (
+                  <button
+                    type="button"
+                    onClick={() => setFilterSystemId(null)}
+                    className="text-xs text-blue-900 font-semibold mt-2 hover:underline"
+                  >
+                    Prikaži sve sisteme
+                  </button>
+                )}
               </div>
 
               <div>
