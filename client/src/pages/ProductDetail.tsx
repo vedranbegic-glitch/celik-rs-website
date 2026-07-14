@@ -1,6 +1,6 @@
 import { useParams, Link } from "wouter";
 import { ArrowLeft } from "lucide-react";
-import { SCRIPT_CONTENT } from "./Home";
+import { SCRIPT_CONTENT, FIRE_PIT_PRODUCT } from "./Home";
 
 type ContentBlock =
   | { type: "paragraph"; text: string; bold?: boolean }
@@ -62,7 +62,9 @@ function DetailBlocks({ blocks }: { blocks: ContentBlock[] }) {
 
 export default function ProductDetail() {
   const { slug } = useParams();
-  const product = SCRIPT_CONTENT.matrix.scenarios.find((s) => s.slug === slug);
+  const product =
+    SCRIPT_CONTENT.matrix.scenarios.find((s) => s.slug === slug) ||
+    (slug === FIRE_PIT_PRODUCT.slug ? FIRE_PIT_PRODUCT : undefined);
 
   if (!product) {
     return (

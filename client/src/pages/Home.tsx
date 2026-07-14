@@ -268,7 +268,7 @@ export const SCRIPT_CONTENT = {
   footer: { copyright: "© 2026 ČELIK.rs. Sva prava zadržana." },
 };
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -276,6 +276,38 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Menu, X, Phone, Mail, MessageCircle, ChevronDown } from "lucide-react";
 import { toast } from "sonner";
+
+// Fire Pit Grill — standalone product (not part of the matrix/scenarios grid)
+export const FIRE_PIT_PRODUCT = {
+  id: "FIRE-PIT-01",
+  slug: "fire-pit-grill",
+  title: "FIRE PIT GRILL",
+  useCase: "IDEALNO ZA: TERASE, DVORIŠTA I OKUPLJANJA NA OTVORENOM.",
+  benefit: "Masivna čelična konstrukcija projektovana za dug vek trajanja i svakodnevnu upotrebu. Široka grill ploča omogućava pripremu različitih namirnica istovremeno, dok otvorena vatra stvara atmosferu koju nijedan drugi način pripreme hrane ne može da zameni.",
+  badge: "EKSKLUZIVNA OUTDOOR OPREMA",
+  variants: [{ img: "/fire-pit.jpg", label: "Fire Pit Grill" }],
+  detail: {
+    tagline: "Vatra ima moć da okuplja ljude.",
+    blocks: [
+      { type: "paragraph", text: "Neki proizvodi služe svojoj nameni. Neki stvaraju uspomene." },
+      { type: "paragraph", text: "FIRE PIT GRILL pripada ovoj drugoj grupi.", bold: true },
+      { type: "paragraph", text: "On nije samo ložište. Nije samo roštilj. On postaje mesto oko kog se okupljaju porodica, prijatelji i svi oni trenuci koji se dugo pamte." },
+      { type: "paragraph", text: "Masivna čelična konstrukcija projektovana je za dug vek trajanja i svakodnevnu upotrebu. Široka grill ploča omogućava pripremu različitih namirnica istovremeno, dok otvorena vatra stvara atmosferu koju nijedan drugi način pripreme hrane ne može da zameni." },
+      { type: "divider" },
+      { type: "emphasis", lines: ["To nije samo proizvod.", "To je razlog da se ljudi okupe."] },
+      { type: "divider" },
+      { type: "heading", text: "Zašto FIRE PIT GRILL" },
+      { type: "bullets", items: [
+        "Ložište i grill u jednom",
+        "Masivna čelična konstrukcija",
+        "Više temperaturnih zona",
+        "Dug vek trajanja",
+        "Moderan dizajn",
+        "Centralno mesto svakog prostora",
+      ] },
+    ],
+  },
+} as const;
 
 // FAQ Accordion Component
 function FAQAccordion({ question, answer }: { question: string; answer: string }) {
@@ -343,7 +375,7 @@ function HeroSlider({ onCtaClick }: { onCtaClick: () => void }) {
   }, []);
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div className="relative w-full min-h-[90vh] md:h-screen overflow-hidden">
       {/* Background images — smooth fade only, no slide */}
       {HERO_SLIDER_IMAGES.map((src, idx) => (
         <div
@@ -367,9 +399,9 @@ function HeroSlider({ onCtaClick }: { onCtaClick: () => void }) {
         }}
       />
 
-      {/* Fixed content — does not change between slides */}
-      <div className="absolute left-0 top-[45%] -translate-y-1/2 z-10 px-6 md:px-16 lg:px-24 w-full">
-        <div className="max-w-[520px]">
+      {/* Fixed content — does not change between slides. Pushed lower on mobile, centered on desktop. */}
+      <div className="absolute inset-x-0 bottom-12 md:bottom-auto md:left-0 md:top-[45%] md:-translate-y-1/2 z-10 px-6 md:px-16 lg:px-24 w-full">
+        <div className="max-w-[520px] pt-32 md:pt-0">
           <h1 className="text-4xl md:text-6xl font-black tracking-normal text-white leading-tight mb-4">
             Jedan sistem. Bezbroj mogućnosti.
           </h1>
@@ -439,6 +471,18 @@ export default function CelikMainPage() {
   const [filterCategory, setFilterCategory] = useState<string | null>(null);
   const [confirmationMessage, setConfirmationMessage] = useState("");
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const firePitPreviewRef = useRef<HTMLVideoElement>(null);
+
+  // Close the Fire Pit video lightbox on ESC
+  useEffect(() => {
+    if (!isVideoOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsVideoOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isVideoOpen]);
 
   // Calculate total panels using each product's actual module size (m x m)
   const selectedSystemData = SYSTEM_OPTIONS.find((s) => s.id === selectedSystem);
@@ -607,105 +651,6 @@ export default function CelikMainPage() {
       {/* HERO SECTION - Auto-playing fade slider, fixed left-aligned text */}
       <HeroSlider onCtaClick={() => { setFilterCategory(null); setIsModalOpen(true); }} />
 
-      {/* PRIMENA SECTION */}
-      <section className="bg-white py-16 md:py-24">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-black tracking-normal text-zinc-900 mb-4">
-              Prilagođava se vašem prostoru.
-            </h2>
-            <p className="text-base text-zinc-500 max-w-2xl mx-auto leading-relaxed">
-              Jedan modularni sistem omogućava različite završne obloge i prilagođava se privatnim, komercijalnim i turističkim prostorima.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                label: "Terase",
-                icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 transition-transform duration-300 group-hover:scale-110">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955a1.126 1.126 0 011.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                  </svg>
-                ),
-              },
-              {
-                label: "Dvorišta i letnjikovci",
-                icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 transition-transform duration-300 group-hover:scale-110">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
-                  </svg>
-                ),
-              },
-              {
-                label: "Zone oko bazena",
-                icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 transition-transform duration-300 group-hover:scale-110">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
-                  </svg>
-                ),
-              },
-              {
-                label: "Bašte restorana i kafića",
-                icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 transition-transform duration-300 group-hover:scale-110">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.871c1.355 0 2.697.056 4.024.166C17.155 8.51 18 9.473 18 10.608v2.513M15 20.488l-.163-3.011M9 20.488l.163-3.011m0 0h5.674m-5.674 0a48.108 48.108 0 01-3.476-.405m9.15.405a48.11 48.11 0 01-3.476-.405m9.896-10.48H4.104m15.792 0c.118.65.18 1.32.18 2.005 0 3.36-1.69 6.337-4.252 8.068" />
-                  </svg>
-                ),
-              },
-              {
-                label: "Poslovni objekti",
-                icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 transition-transform duration-300 group-hover:scale-110">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
-                  </svg>
-                ),
-              },
-              {
-                label: "Glamping i turistički objekti",
-                icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 transition-transform duration-300 group-hover:scale-110">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6.115 5.19l.319 1.913A6 6 0 008.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 002.288-4.042 1.087 1.087 0 00-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 01-.98-.314l-.295-.295a1.125 1.125 0 010-1.591l.13-.132a1.125 1.125 0 011.3-.21l.603.302a.809.809 0 001.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 001.528-1.732l.146-.292M6.115 5.19A9 9 0 1017.18 4.64M6.115 5.19A8.965 8.965 0 0112 3c1.929 0 3.716.607 5.18 1.64" />
-                  </svg>
-                ),
-              },
-            ].map(({ label, icon }) => (
-              <a
-                key={label}
-                href="#"
-                className="group flex flex-col items-center text-center bg-white border border-zinc-200 hover:border-blue-900/30 rounded-2xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-              >
-                <div className="text-blue-900 mb-4">{icon}</div>
-                <span className="text-sm font-black uppercase tracking-wide text-zinc-800 group-hover:text-blue-900 transition-colors duration-300">
-                  {label}
-                </span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ICONS BANNER - 3 B2C Cards */}
-      <section className="bg-zinc-50 py-16 md:py-20">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {SCRIPT_CONTENT.iconsBanner.map((item, idx) => (
-              <div key={idx} className="bg-white border border-zinc-200 p-8 rounded-none hover:shadow-md transition-shadow">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 flex items-center justify-center bg-blue-900/8 rounded-none flex-shrink-0">
-                    <span className="text-blue-900 font-black text-lg">✓</span>
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-black text-lg text-zinc-900 mb-2 tracking-normal">{item.label}</h3>
-                    <p className="text-zinc-600 text-sm leading-relaxed">{item.desc}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* MATRIX SECTION - 4 Cards Grid */}
       <section id="proizvodi" className="bg-white py-16 md:py-24">
         <div className="max-w-6xl mx-auto px-4">
@@ -750,57 +695,118 @@ export default function CelikMainPage() {
         </div>
       </section>
 
-      {/* FIRE PIT BANNER */}
-      <section className="bg-zinc-900 py-16 md:py-20">
+      {/* OSTALI PROIZVODI SECTION - same boxed card format as Matrix section */}
+      <section className="bg-white py-16 md:py-24">
         <div className="max-w-6xl mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center gap-10">
-            <div className="w-full md:w-1/2 h-72 bg-cover bg-center rounded-none flex-shrink-0" style={{ backgroundImage: "url('/fire-pit.jpg')" }}></div>
-            <div className="w-full md:w-1/2">
-              <p className="text-sm font-bold text-blue-400 uppercase tracking-wider mb-4">
-                EKSKLUZIVNA OUTDOOR OPREMA
-              </p>
-              <h2 className="text-3xl md:text-4xl font-black text-white tracking-normal mb-2">
-                FIRE PIT GRILL
-              </h2>
-              <p className="text-sm font-bold text-blue-400 uppercase tracking-wider mb-5">
-                MULTIFUNKCIONALNO PRENOSIVO OGNJIŠTE, ROŠTILJ I KUVANJE
-              </p>
-              <p className="text-zinc-300 text-sm leading-relaxed mb-6">
-                Više od ložišta. Više od roštilja. Fire Pit Grill je pametno projektovan prenosivi sistem koji spaja luksuzno otvoreno ognjište, pečenje hrane i kuvanje u jedan masivan proizvod.
-              </p>
-              <div className="flex flex-col gap-4 mb-8">
-                <div className="flex gap-3">
-                  <div className="w-1 flex-shrink-0 bg-orange-600 mt-1"></div>
-                  <div>
-                    <p className="text-white text-xs font-black uppercase mb-1">Premium čelik 4 mm i težina 50 kg</p>
-                    <p className="text-zinc-400 text-xs leading-relaxed">Izrađen od čistog, masivnog i debelozidnog čelika. Težina od 50 kg kupcu odmah uliva osećaj snage i trajnosti (ovo nije limeni fićfirić od par kila). Garantuje maksimalnu stabilnost i otpornost na temperature bez deformacija, bez hemijskih premaza.</p>
-                  </div>
-                </div>
-                <div className="flex gap-3">
-                  <div className="w-1 flex-shrink-0 bg-orange-600 mt-1"></div>
-                  <div>
-                    <p className="text-white text-xs font-black uppercase mb-1">Inženjerska geometrija (760×333 mm)</p>
-                    <p className="text-zinc-400 text-xs leading-relaxed">Heksagonalna forma sa promajnom ventilacijom obezbeđuje konstantan dotok kiseonika, savršeno sagorevanje drveta i minimalno stvaranje dima.</p>
-                  </div>
-                </div>
-                <div className="flex gap-3">
-                  <div className="w-1 flex-shrink-0 bg-orange-600 mt-1"></div>
-                  <div>
-                    <p className="text-white text-xs font-black uppercase mb-1">Pametna kasetna montaža i kuvanje</p>
-                    <p className="text-zinc-400 text-xs leading-relaxed">Sve stranice su precizno laserski sečene. Sistem se sklapa za nekoliko minuta jednostavnim uklapanjem žlebova bez alata. Široka gornja ploča je idealna za istovremeno pečenje hrane ili kuvanje u kotliću i posuđu direktno na vatri.</p>
-                  </div>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-black tracking-normal text-zinc-900 mb-4">
+              Ostali proizvodi
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* FIRE PIT GRILL card */}
+            <div className="bg-zinc-50 border border-zinc-200 rounded-none overflow-hidden hover:shadow-lg transition-shadow flex flex-col">
+              <div
+                className="group relative w-full aspect-[4/3] overflow-hidden bg-zinc-900 cursor-pointer"
+                onMouseEnter={() => firePitPreviewRef.current?.play()}
+                onMouseLeave={() => {
+                  const v = firePitPreviewRef.current;
+                  if (v) { v.pause(); v.currentTime = 0; }
+                }}
+                onClick={() => setIsVideoOpen(true)}
+              >
+                {/* Poster image — first frame, always underneath */}
+                <img
+                  src="/fire-pit.jpg"
+                  alt="Fire Pit Grill"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+
+                {/* Hover-preview video (desktop only) — muted loop, plays only on hover */}
+                <video
+                  ref={firePitPreviewRef}
+                  src="/fire-pit-video-preview.mp4"
+                  poster="/fire-pit.jpg"
+                  muted
+                  loop
+                  playsInline
+                  preload="none"
+                  className="hidden md:block absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                />
+
+                {/* Subtle dark tint — unifies image/video, keeps focus on fire and metal */}
+                <div className="absolute inset-0 bg-black/10 pointer-events-none"></div>
+
+                {/* Video CTA chip */}
+                <div className="absolute bottom-4 left-4 flex items-center gap-2 bg-black/55 text-white text-xs font-black uppercase tracking-wide px-3 py-2">
+                  ▶ Pogledaj kako se sklapa
                 </div>
               </div>
-              <button
-                onClick={() => { setFilterCategory(null); setIsModalOpen(true); }}
-                className="bg-orange-600 hover:bg-orange-700 text-white font-black text-xs uppercase px-6 py-3 rounded-none transition-colors"
-              >
-                SAZNAJ CENU
-              </button>
+
+              <div className="p-6 flex flex-col flex-1">
+                <div className="inline-block bg-blue-900/8 text-blue-900 px-3 py-1 rounded-none text-xs font-black uppercase mb-3 w-fit">
+                  EKSKLUZIVNA OUTDOOR OPREMA
+                </div>
+                <h3 className="text-xl font-black text-zinc-900 mb-4 tracking-normal">FIRE PIT GRILL</h3>
+                <Link
+                  href="/proizvod/fire-pit-grill"
+                  className="text-sm font-bold text-orange-600 hover:text-orange-700 uppercase tracking-wide mb-5 inline-flex items-center gap-1 w-fit"
+                >
+                  Više o proizvodu →
+                </Link>
+                <button
+                  onClick={() => { setFilterCategory(null); setIsModalOpen(true); }}
+                  className="mt-auto w-full bg-orange-600 hover:bg-orange-700 text-white font-black text-xs uppercase px-4 py-3 rounded-none transition-colors"
+                >
+                  IZRAČUNAJ CENU ZA 30 SEKUNDI
+                </button>
+              </div>
             </div>
+
+            {/* UPCOMING PRODUCTS - placeholder cards, same box format */}
+            {[1, 2].map((n) => (
+              <div
+                key={n}
+                className="bg-zinc-50 border border-zinc-200 rounded-none overflow-hidden flex flex-col"
+              >
+                <div className="w-full aspect-[4/3] bg-zinc-100"></div>
+                <div className="p-6 flex flex-col flex-1 items-center justify-center text-center">
+                  <h3 className="text-lg font-black text-zinc-400 mb-2 tracking-normal uppercase">Uskoro</h3>
+                  <p className="text-zinc-400 text-sm leading-relaxed">Novi modularni elementi u razvoju</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
+
+      {/* FIRE PIT VIDEO LIGHTBOX */}
+      {isVideoOpen && (
+        <div
+          className="fixed inset-0 bg-black/90 z-[999] flex items-center justify-center p-4"
+          onClick={() => setIsVideoOpen(false)}
+        >
+          <button
+            onClick={() => setIsVideoOpen(false)}
+            aria-label="Zatvori video"
+            className="absolute top-5 right-5 w-10 h-10 flex items-center justify-center text-white/80 hover:text-white text-2xl"
+          >
+            ✕
+          </button>
+          <video
+            src="/fire-pit-video.mp4"
+            poster="/fire-pit.jpg"
+            controls
+            autoPlay
+            muted
+            loop
+            playsInline
+            onClick={(e) => e.stopPropagation()}
+            className="max-w-full max-h-[85vh] w-auto h-auto outline-none"
+          />
+        </div>
+      )}
 
       {/* THREE STEPS SECTION */}
       <section id="kako-radi" className="bg-zinc-50 py-16 md:py-24">
