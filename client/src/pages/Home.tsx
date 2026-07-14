@@ -751,32 +751,21 @@ export default function CelikMainPage() {
                 <h3 className="text-xl font-black text-zinc-900 mb-4 tracking-normal">FIRE PIT GRILL</h3>
                 <Link
                   href="/proizvod/fire-pit-grill"
-                  className="text-sm font-bold text-orange-600 hover:text-orange-700 uppercase tracking-wide mb-5 inline-flex items-center gap-1 w-fit"
+                  className="text-sm font-bold text-orange-600 hover:text-orange-700 uppercase tracking-wide inline-flex items-center gap-1 w-fit"
                 >
                   Više o proizvodu →
                 </Link>
-                <button
-                  onClick={() => { setFilterCategory(null); setIsModalOpen(true); }}
-                  className="mt-auto w-full bg-orange-600 hover:bg-orange-700 text-white font-black text-xs uppercase px-4 py-3 rounded-none transition-colors"
-                >
-                  IZRAČUNAJ CENU ZA 30 SEKUNDI
-                </button>
               </div>
             </div>
 
-            {/* UPCOMING PRODUCTS - placeholder cards, same box format */}
-            {[1, 2].map((n) => (
-              <div
-                key={n}
-                className="bg-zinc-50 border border-zinc-200 rounded-none overflow-hidden flex flex-col"
-              >
-                <div className="w-full aspect-[4/3] bg-zinc-100"></div>
-                <div className="p-6 flex flex-col flex-1 items-center justify-center text-center">
-                  <h3 className="text-lg font-black text-zinc-400 mb-2 tracking-normal uppercase">Uskoro</h3>
-                  <p className="text-zinc-400 text-sm leading-relaxed">Novi modularni elementi u razvoju</p>
-                </div>
+            {/* UPCOMING PRODUCTS - placeholder card, same box format */}
+            <div className="bg-zinc-50 border border-zinc-200 rounded-none overflow-hidden flex flex-col">
+              <div className="w-full aspect-[4/3] bg-zinc-100"></div>
+              <div className="p-6 flex flex-col flex-1 items-center justify-center text-center">
+                <h3 className="text-lg font-black text-zinc-400 mb-2 tracking-normal uppercase">Uskoro</h3>
+                <p className="text-zinc-400 text-sm leading-relaxed">Novi modularni elementi u razvoju</p>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
