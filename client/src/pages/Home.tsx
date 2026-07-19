@@ -468,6 +468,9 @@ export default function CelikMainPage() {
   const [width, setWidth] = useState("");
   const [length, setLength] = useState("");
   const [selectedSystem, setSelectedSystem] = useState("");
+  const [customerName, setCustomerName] = useState("");
+  const [customerPhone, setCustomerPhone] = useState("");
+  const [customerEmail, setCustomerEmail] = useState("");
   const [filterCategory, setFilterCategory] = useState<string | null>(null);
   const [confirmationMessage, setConfirmationMessage] = useState("");
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
@@ -495,7 +498,7 @@ export default function CelikMainPage() {
   const handleModalSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!width || !length || !selectedSystem) {
+    if (!width || !length || !selectedSystem || !customerName || !customerPhone || !customerEmail) {
       toast.error("Molimo popunite sve obavezne podatke");
       return;
     }
@@ -507,6 +510,10 @@ export default function CelikMainPage() {
       const formData = new FormData();
       formData.append("_subject", `ČELIK.rs – Nova ponuda: ${totalPanels} panela (${selectedSystemData?.name})`);
       formData.append("_captcha", "false");
+      formData.append("_replyto", customerEmail);
+      formData.append("Ime i prezime", customerName);
+      formData.append("Telefon", customerPhone);
+      formData.append("Email", customerEmail);
       formData.append("Širina površine (m)", width);
       formData.append("Dužina površine (m)", length);
       formData.append("Odabrani sistem", selectedSystemData?.name ?? "");
@@ -536,6 +543,9 @@ export default function CelikMainPage() {
         setWidth("");
         setLength("");
         setSelectedSystem("");
+        setCustomerName("");
+        setCustomerPhone("");
+        setCustomerEmail("");
         setConfirmationMessage("");
         setUploadedFile(null);
       }, 3000);
@@ -956,6 +966,39 @@ export default function CelikMainPage() {
           ) : (
             <form onSubmit={handleModalSubmit} className="space-y-6">
               <div>
+                <Label className="text-zinc-900 font-semibold mb-2 block">Ime i Prezime *</Label>
+                <Input
+                  type="text"
+                  placeholder="npr. Petar Petrović"
+                  value={customerName}
+                  onChange={(e) => setCustomerName(e.target.value)}
+                  className="border-zinc-300 rounded-none"
+                />
+              </div>
+
+              <div>
+                <Label className="text-zinc-900 font-semibold mb-2 block">Telefon *</Label>
+                <Input
+                  type="tel"
+                  placeholder="npr. 06X XXX XXXX"
+                  value={customerPhone}
+                  onChange={(e) => setCustomerPhone(e.target.value)}
+                  className="border-zinc-300 rounded-none"
+                />
+              </div>
+
+              <div>
+                <Label className="text-zinc-900 font-semibold mb-2 block">Email *</Label>
+                <Input
+                  type="email"
+                  placeholder="npr. ime@primer.com"
+                  value={customerEmail}
+                  onChange={(e) => setCustomerEmail(e.target.value)}
+                  className="border-zinc-300 rounded-none"
+                />
+              </div>
+
+              <div>
                 <Label className="text-zinc-900 font-semibold mb-2 block">Širina Površine (m) *</Label>
                 <Input
                   type="number"
@@ -1037,7 +1080,7 @@ export default function CelikMainPage() {
 
               <button
                 type="submit"
-                disabled={isSubmitting || !width || !length || !selectedSystem}
+                disabled={isSubmitting || !width || !length || !selectedSystem || !customerName || !customerPhone || !customerEmail}
                 className="w-full bg-orange-600 hover:bg-orange-700 disabled:bg-zinc-300 text-white font-black text-sm uppercase px-4 py-3 rounded-none transition-colors"
               >
                 {isSubmitting ? "Slanje..." : "Pošalji Zahtev"}
