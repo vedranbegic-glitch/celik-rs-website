@@ -475,6 +475,8 @@ export default function CelikMainPage() {
   const [confirmationMessage, setConfirmationMessage] = useState("");
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [isDiagramOpen, setIsDiagramOpen] = useState(false);
+  const [diagramZoom, setDiagramZoom] = useState(1);
   const firePitPreviewRef = useRef<HTMLVideoElement>(null);
 
   // Close the Fire Pit video lightbox on ESC
@@ -486,6 +488,16 @@ export default function CelikMainPage() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isVideoOpen]);
+
+  // Close the drainage/ventilation diagram lightbox on ESC, reset zoom on close
+  useEffect(() => {
+    if (!isDiagramOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsDiagramOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isDiagramOpen]);
 
   // Calculate total panels using each product's actual module size (m x m)
   const selectedSystemData = SYSTEM_OPTIONS.find((s) => s.id === selectedSystem);
@@ -845,13 +857,85 @@ export default function CelikMainPage() {
       {/* DRAINAGE & VENTILATION TECHNICAL IMAGE */}
       <section className="bg-white py-12 md:py-16">
         <div className="max-w-5xl mx-auto px-4">
-          <img
-            src="/drenaza-i-ventilacija-modularni-pod-dijagram.webp"
-            alt="Sistem drenaže i ventilacije - tehnički prikaz"
-            className="w-full h-auto object-contain block"
-          />
+          <button
+            type="button"
+            onClick={() => { setDiagramZoom(1); setIsDiagramOpen(true); }}
+            className="w-full cursor-zoom-in"
+            aria-label="Uvećaj prikaz drenaže i ventilacije"
+          >
+            <img
+              src="/drenaza-i-ventilacija-modularni-pod-dijagram.webp"
+              alt="Sistem drenaže i ventilacije - tehnički prikaz"
+              className="w-full h-auto object-contain block"
+            />
+          </button>
         </div>
       </section>
+
+      {/* DRAINAGE & VENTILATION DIAGRAM ZOOM LIGHTBOX */}
+      {isDiagramOpen && (
+        <div
+          className="fixed inset-0 bg-black/90 z-[999] flex items-center justify-center p-4"
+          onClick={() => setIsDiagramOpen(false)}
+        >
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsDiagramOpen(false);
+            }}
+            aria-label="Zatvori prikaz"
+            className="fixed top-4 right-4 z-[1000] w-12 h-12 flex items-center justify-center bg-black/70 hover:bg-black text-white text-2xl rounded-full"
+            style={{ touchAction: "manipulation" }}
+          >
+            ✕
+          </button>
+
+          {/* Zoom controls */}
+          <div
+            className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[1000] flex items-center gap-2 bg-black/70 rounded-full px-2 py-2"
+            onClick={(e) => e.stopPropagation()}
+            style={{ touchAction: "manipulation" }}
+          >
+            <button
+              type="button"
+              onClick={() => setDiagramZoom((z) => Math.max(1, +(z - 0.5).toFixed(1)))}
+              disabled={diagramZoom <= 1}
+              aria-label="Umanji"
+              className="w-11 h-11 flex items-center justify-center text-white text-xl font-black rounded-full hover:bg-white/20 disabled:opacity-30 disabled:hover:bg-transparent"
+            >
+              −
+            </button>
+            <span className="text-white text-xs font-bold w-12 text-center select-none">
+              {Math.round(diagramZoom * 100)}%
+            </span>
+            <button
+              type="button"
+              onClick={() => setDiagramZoom((z) => Math.min(3, +(z + 0.5).toFixed(1)))}
+              disabled={diagramZoom >= 3}
+              aria-label="Uvećaj"
+              className="w-11 h-11 flex items-center justify-center text-white text-xl font-black rounded-full hover:bg-white/20 disabled:opacity-30 disabled:hover:bg-transparent"
+            >
+              +
+            </button>
+          </div>
+
+          <div
+            className="w-full h-full overflow-auto flex items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src="/drenaza-i-ventilacija-modularni-pod-dijagram.webp"
+              alt="Sistem drenaže i ventilacije - tehnički prikaz (uvećano)"
+              className="max-w-none transition-transform duration-200 ease-out"
+              style={{
+                width: `${diagramZoom * 100}%`,
+                maxWidth: diagramZoom === 1 ? "100%" : "none",
+              }}
+            />
+          </div>
+        </div>
+      )}
 
       {/* ADVANTAGES SECTION */}
       <section className="bg-white py-16 md:py-24">
