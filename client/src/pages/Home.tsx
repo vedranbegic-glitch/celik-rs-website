@@ -32,9 +32,9 @@ export const SCRIPT_CONTENT = {
         benefit: "Gotov fabrički panel sa integrisanom travom premium gustine. Podignut sistem omogućava konstantan protok vazduha i vode ispod poda, čime trajno sprečava zadržavanje vlage, buđ i neprijatne mirise.",
         badge: "ZELENA OAZA",
         variants: [
-          { img: "/eco-green-monoblok-vestacka-trava-1.jpg", label: "Stepping Stone Grid" },
-          { img: "/eco-green-monoblok-vestacka-trava-2.jpg", label: "Zen Moss" },
-          { img: "/eco-green-monoblok-vestacka-trava-3.jpg", label: "Natural Grass" },
+          { img: "/eco-green-monoblok-vestacka-trava-1.webp", label: "Stepping Stone Grid" },
+          { img: "/eco-green-monoblok-vestacka-trava-2.webp", label: "Zen Moss" },
+          { img: "/eco-green-monoblok-vestacka-trava-3.webp", label: "Natural Grass" },
         ],
         detail: {
           tagline: "Zelena površina koja ostaje takva godinama.",
@@ -77,9 +77,9 @@ export const SCRIPT_CONTENT = {
         benefit: "Kasetni panel sa ugrađenom visokootpornom granitnom keramikom. Spoljašnji čelični profil deluje kao monoblok ram koji trajno štiti ivice pločica od pucanja, dok akustična izolacija potpuno prigušuje eho.",
         badge: "VRHUNSKI LUKSUZ",
         variants: [
-          { img: "/gres-premium-monoblok-keramika-1.jpg", label: "Black Marble – Nero Edition" },
-          { img: "/gres-premium-monoblok-keramika-2.jpg", label: "Slate – Graphite Grey" },
-          { img: "/gres-premium-monoblok-keramika-3.jpg", label: "Travertine – Luxury Beige" },
+          { img: "/gres-premium-monoblok-keramika-1.webp", label: "Black Marble – Nero Edition" },
+          { img: "/gres-premium-monoblok-keramika-2.webp", label: "Slate – Graphite Grey" },
+          { img: "/gres-premium-monoblok-keramika-3.webp", label: "Travertine – Luxury Beige" },
         ],
         detail: {
           tagline: "Keramika kojoj nije potreban kompromis.",
@@ -117,9 +117,9 @@ export const SCRIPT_CONTENT = {
         benefit: "Ekstremno nosiv industrijski modul sa integrisanom toplocinkovanom rešetkom. Otvorena struktura omogućava da voda, sneg, blato i mulj odmah propadnu ispod nivoa poda, ostavljajući gaznu površinu uvek čistom.",
         badge: "INDUSTRIJSKA ČVRSTOĆA",
         variants: [
-          { img: "/heavy-duty-monoblok-industrijska-resetka-1.jpg", label: "Inox Grating – Linear" },
-          { img: "/heavy-duty-monoblok-industrijska-resetka-2.jpg", label: "Industrial Grid – Safety Yellow" },
-          { img: "/heavy-duty-monoblok-industrijska-resetka-3.jpg", label: "Aluminum Plate – Checker" },
+          { img: "/heavy-duty-monoblok-industrijska-resetka-1.webp", label: "Inox Grating – Linear" },
+          { img: "/heavy-duty-monoblok-industrijska-resetka-2.webp", label: "Industrial Grid – Safety Yellow" },
+          { img: "/heavy-duty-monoblok-industrijska-resetka-3.webp", label: "Aluminum Plate – Checker" },
         ],
         detail: {
           tagline: "Projektovan kada pouzdanost nema alternativu.",
@@ -155,9 +155,9 @@ export const SCRIPT_CONTENT = {
         benefit: "Premium panel sa ugrađenim WPC daskama punog profila. Donosi izgled drveta uz dugovečnost polimera. Pametni ram idealno kompenzuje mikromilimetarska širenja materijala na suncu, bez ikakvog godišnjeg održavanja.",
         badge: "PRIRODNA TOPLINA",
         variants: [
-          { img: "/wpc-compound-monoblok-drvo-kompozit-1.jpg", label: "WPC – Teak Brown" },
-          { img: "/wpc-compound-monoblok-drvo-kompozit-2.jpg", label: "WPC – Dark Walnut" },
-          { img: "/wpc-compound-monoblok-drvo-kompozit-3.jpg", label: "WPC – Natural Oak" },
+          { img: "/wpc-compound-monoblok-drvo-kompozit-1.webp", label: "WPC – Teak Brown" },
+          { img: "/wpc-compound-monoblok-drvo-kompozit-2.webp", label: "WPC – Dark Walnut" },
+          { img: "/wpc-compound-monoblok-drvo-kompozit-3.webp", label: "WPC – Natural Oak" },
         ],
         detail: {
           tagline: "Toplina drveta. Bez njegovih slabosti.",
@@ -285,7 +285,7 @@ export const FIRE_PIT_PRODUCT = {
   useCase: "IDEALNO ZA: TERASE, DVORIŠTA I OKUPLJANJA NA OTVORENOM.",
   benefit: "Masivna čelična konstrukcija projektovana za dug vek trajanja i svakodnevnu upotrebu. Široka grill ploča omogućava pripremu različitih namirnica istovremeno, dok otvorena vatra stvara atmosferu koju nijedan drugi način pripreme hrane ne može da zameni.",
   badge: "EKSKLUZIVNA OUTDOOR OPREMA",
-  variants: [{ img: "/fire-pit-grill-celicna-vatra-rostilj.jpg", label: "Fire Pit Grill" }],
+  variants: [{ img: "/fire-pit-grill-celicna-vatra-rostilj.webp", label: "Fire Pit Grill" }],
   detail: {
     tagline: "Vatra ima moć da okuplja ljude.",
     blocks: [
@@ -358,10 +358,10 @@ const SYSTEM_OPTIONS = [
 
 // Hero slider images — order is required/fixed.
 const HERO_SLIDER_IMAGES = [
-  "/modularni-pod-terasa-kisa-noc-1.jpg",
-  "/modularni-pod-terasa-kamene-staze-basta-2.jpg",
-  "/modularni-pod-terasa-vatra-sumrak-3.jpg",
-  "/modularni-pod-terasa-exterijer-moderna-4.jpg",
+  "/modularni-pod-terasa-kisa-noc-1.webp",
+  "/modularni-pod-terasa-kamene-staze-basta-2.webp",
+  "/modularni-pod-terasa-vatra-sumrak-3.webp",
+  "/modularni-pod-terasa-exterijer-moderna-4.webp",
 ];
 
 function HeroSlider({ onCtaClick }: { onCtaClick: () => void }) {
@@ -728,7 +728,7 @@ export default function CelikMainPage() {
               >
                 {/* Poster image — first frame, always underneath */}
                 <img
-                  src="/fire-pit-grill-celicna-vatra-rostilj.jpg"
+                  src="/fire-pit-grill-celicna-vatra-rostilj.webp"
                   alt="Fire Pit Grill – čelično vatrište i roštilj za dvorište"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
@@ -737,7 +737,7 @@ export default function CelikMainPage() {
                 <video
                   ref={firePitPreviewRef}
                   src="/fire-pit-video-preview.mp4"
-                  poster="/fire-pit-grill-celicna-vatra-rostilj.jpg"
+                  poster="/fire-pit-grill-celicna-vatra-rostilj.webp"
                   muted
                   loop
                   playsInline
@@ -787,15 +787,20 @@ export default function CelikMainPage() {
           onClick={() => setIsVideoOpen(false)}
         >
           <button
-            onClick={() => setIsVideoOpen(false)}
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsVideoOpen(false);
+            }}
             aria-label="Zatvori video"
-            className="absolute top-5 right-5 w-10 h-10 flex items-center justify-center text-white/80 hover:text-white text-2xl"
+            className="fixed top-4 right-4 z-[1000] w-12 h-12 flex items-center justify-center bg-black/70 hover:bg-black text-white text-2xl rounded-full"
+            style={{ touchAction: "manipulation" }}
           >
             ✕
           </button>
           <video
             src="/fire-pit-video.mp4"
-            poster="/fire-pit-grill-celicna-vatra-rostilj.jpg"
+            poster="/fire-pit-grill-celicna-vatra-rostilj.webp"
             controls
             autoPlay
             muted
@@ -828,7 +833,7 @@ export default function CelikMainPage() {
 
           <div className="border border-zinc-200 rounded-none overflow-hidden">
             <img
-              src="/wpc-monoblok-paneli-paleta-isporuka.jpg"
+              src="/wpc-monoblok-paneli-paleta-isporuka.webp"
               alt="WPC modularni pod - ambijentalni prikaz i logistika dostave"
               className="w-full block object-cover object-center"
               style={{ maxHeight: "500px" }}
@@ -841,7 +846,7 @@ export default function CelikMainPage() {
       <section className="bg-white py-12 md:py-16">
         <div className="max-w-5xl mx-auto px-4">
           <img
-            src="/drenaza-i-ventilacija-modularni-pod-dijagram.png"
+            src="/drenaza-i-ventilacija-modularni-pod-dijagram.webp"
             alt="Sistem drenaže i ventilacije - tehnički prikaz"
             className="w-full h-auto object-contain block"
           />
