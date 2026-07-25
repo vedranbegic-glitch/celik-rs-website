@@ -600,6 +600,12 @@ export default function CelikMainPage() {
             >
               FAQ
             </a>
+            <Link
+              href="/saradnja-sa-arhitektama"
+              className="text-zinc-700 hover:text-orange-600 font-semibold text-xs uppercase px-3 py-2 transition-colors"
+            >
+              Za Arhitekte
+            </Link>
             <a 
               href="#contact"
               className="text-zinc-700 hover:text-orange-600 font-semibold text-xs uppercase px-3 py-2 transition-colors"
@@ -647,6 +653,13 @@ export default function CelikMainPage() {
             >
               FAQ
             </a>
+            <Link
+              href="/saradnja-sa-arhitektama"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block w-full text-left py-4 px-6 text-base font-medium text-zinc-900 hover:bg-zinc-50 border-b border-zinc-100 transition"
+            >
+              Za Arhitekte
+            </Link>
             <button 
               onClick={() => {
                 setMobileMenuOpen(false);

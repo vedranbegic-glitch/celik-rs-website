@@ -2,6 +2,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import ProductDetail from "@/pages/ProductDetail";
+import Saradnja from "@/pages/Saradnja";
 import { useEffect } from "react";
 import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -28,6 +29,7 @@ function Router() {
       <Switch>
         <Route path={"/"} component={Home} />
         <Route path={"/proizvod/:slug"} component={ProductDetail} />
+        <Route path={"/saradnja-sa-arhitektama"} component={Saradnja} />
         <Route path={"/404"} component={NotFound} />
         {/* Final fallback route */}
         <Route component={NotFound} />
