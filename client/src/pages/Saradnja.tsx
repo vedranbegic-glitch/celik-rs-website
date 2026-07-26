@@ -195,12 +195,12 @@ export default function Saradnja() {
           <p className="text-zinc-600 text-base leading-relaxed max-w-xl mx-auto mb-8">
             Pošaljite PDF dokumentaciju, DWG ili DXF crteže, skicu, fotografiju postojećeg rešenja ili 3D model — predložićemo tehničko rešenje u skladu sa zahtevima vašeg projekta.
           </p>
-          <Link
-            href="/#contact"
+          <a
+            href="mailto:modularnipodnisistem@gmail.com?subject=Tehnička%20analiza%20projekta&body=Poštovani%2C%0A%0AŽeleo/la%20bih%20da%20pošaljem%20projekat%20na%20tehničku%20analizu.%0A%0AU%20prilogu%3A%0A-%20%0A%0AKratak%20opis%20projekta%3A%0A-%20"
             className="inline-block bg-orange-600 hover:bg-orange-700 text-white font-black text-sm uppercase px-8 py-4 rounded-none shadow-sm transition-colors"
           >
             Pošaljite projekat na tehničku analizu →
-          </Link>
+          </a>
         </div>
       </div>
 
