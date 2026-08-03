@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import { ArrowLeft } from "lucide-react";
+import { useSEO, SITE_URL } from "@/hooks/useSEO";
 
 const PAGE_TITLE = "Saradnja sa arhitektama i projektantima | ČELIK.rs";
 const PAGE_DESCRIPTION =
@@ -39,27 +40,20 @@ export default function Saradnja() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isDrawingOpen]);
 
-  // Per-page SEO: title + meta description (site has no SSR, so this runs client-side on mount)
-  useEffect(() => {
-    const prevTitle = document.title;
-    document.title = PAGE_TITLE;
-
-    let meta = document.querySelector('meta[name="description"]');
-    const prevDescription = meta?.getAttribute("content") ?? null;
-    if (!meta) {
-      meta = document.createElement("meta");
-      meta.setAttribute("name", "description");
-      document.head.appendChild(meta);
-    }
-    meta.setAttribute("content", PAGE_DESCRIPTION);
-
-    return () => {
-      document.title = prevTitle;
-      if (meta && prevDescription !== null) {
-        meta.setAttribute("content", prevDescription);
-      }
-    };
-  }, []);
+  // Per-page SEO: title, meta description, canonical, OG tags + structured data
+  useSEO({
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    path: "/saradnja-sa-arhitektama",
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      serviceType: "Tehnička podrška i saradnja za arhitekte i projektante",
+      provider: { "@type": "Organization", name: "ČELIK.rs", url: SITE_URL },
+      areaServed: "RS",
+      description: PAGE_DESCRIPTION,
+    },
+  });
 
   return (
     <div className="min-h-screen bg-white text-zinc-900 font-sans antialiased">

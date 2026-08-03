@@ -1,6 +1,7 @@
 import { useParams, Link } from "wouter";
 import { ArrowLeft } from "lucide-react";
 import { SCRIPT_CONTENT, FIRE_PIT_PRODUCT } from "./Home";
+import { useSEO, SITE_URL } from "@/hooks/useSEO";
 
 type ContentBlock =
   | { type: "paragraph"; text: string; bold?: boolean }
@@ -65,6 +66,34 @@ export default function ProductDetail() {
   const product =
     SCRIPT_CONTENT.matrix.scenarios.find((s) => s.slug === slug) ||
     (slug === FIRE_PIT_PRODUCT.slug ? FIRE_PIT_PRODUCT : undefined);
+
+  // Hooks must run unconditionally — build SEO data for the "not found" case too (noindex).
+  useSEO(
+    product
+      ? {
+          title: `${product.title} — Modularni Podni Sistem | ČELIK.rs`,
+          description: product.benefit.length > 160 ? `${product.benefit.slice(0, 157)}...` : product.benefit,
+          path: `/proizvod/${product.slug}`,
+          image: `${SITE_URL}${product.variants[0].img}`,
+          type: "product",
+          structuredData: {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: product.title,
+            description: product.benefit,
+            image: `${SITE_URL}${product.variants[0].img}`,
+            url: `${SITE_URL}/proizvod/${product.slug}`,
+            brand: { "@type": "Brand", name: "ČELIK.rs" },
+            category: product.useCase,
+          },
+        }
+      : {
+          title: "Proizvod nije pronađen | ČELIK.rs",
+          description: "Traženi proizvod ne postoji na ČELIK.rs.",
+          path: `/proizvod/${slug ?? ""}`,
+          noindex: true,
+        }
+  );
 
   if (!product) {
     return (
@@ -133,12 +162,16 @@ export default function ProductDetail() {
           </>
         )}
 
-        <Link
-          href="/#contact"
+        <a
+          href={`mailto:modularnipodnisistem@gmail.com?subject=${encodeURIComponent(
+            `Upit za proizvod: ${product.title}`
+          )}&body=${encodeURIComponent(
+            `Poštovani,\n\nZanima me proizvod "${product.title}".\n\nMolim Vas pošaljite mi ponudu i dodatne informacije.\n\nHvala.`
+          )}`}
           className="inline-block bg-orange-600 hover:bg-orange-700 text-white font-black text-sm uppercase px-8 py-4 rounded-none shadow-sm transition-colors mt-4"
         >
           Pošaljite Upit za Ovaj Proizvod
-        </Link>
+        </a>
       </div>
     </div>
   );

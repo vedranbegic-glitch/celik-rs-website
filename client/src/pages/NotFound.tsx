@@ -2,9 +2,18 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { AlertCircle, Home } from "lucide-react";
 import { useLocation } from "wouter";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function NotFound() {
   const [, setLocation] = useLocation();
+
+  // 404 pages must never be indexed — keeps Google from wasting crawl budget on dead URLs.
+  useSEO({
+    title: "Stranica nije pronađena (404) | ČELIK.rs",
+    description: "Tražena stranica ne postoji na ČELIK.rs.",
+    path: typeof window !== "undefined" ? window.location.pathname : "/404",
+    noindex: true,
+  });
 
   const handleGoHome = () => {
     setLocation("/");

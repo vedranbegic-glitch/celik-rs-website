@@ -276,6 +276,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Menu, X, Phone, Mail, MessageCircle, ChevronDown } from "lucide-react";
 import { toast } from "sonner";
+import { useSEO } from "@/hooks/useSEO";
 
 // Fire Pit Grill — standalone product (not part of the matrix/scenarios grid)
 export const FIRE_PIT_PRODUCT = {
@@ -462,6 +463,15 @@ function ImageSlider({ variants, productTitle }: { variants: { img: string; labe
 }
 
 export default function CelikMainPage() {
+  useSEO({
+    title: "ČELIK.rs - Modularni Podni Sistemi | Fabrički Sklopljeni Monoblok Paneli",
+    description:
+      "Sistem gotovih fabrički sklopljenih monoblok panela za bilo koju podlogu — terase, dvorišta, zone oko bazena, poslovne i ugostiteljske prostore. Instalacija za 15 minuta, bez majstora i bez alata.",
+    path: "/",
+    // No dynamic structuredData here — the Organization schema lives statically in
+    // index.html so it's present even for crawlers that don't execute JavaScript.
+  });
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
