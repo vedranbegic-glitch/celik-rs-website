@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const SITE_URL = "https://xn--elik-fua.rs"; // čelik.rs (punycode — matches robots.txt / sitemap.xml)
+const SITE_URL = "https://modularnisistemi.com";
 const SITE_NAME = "ČELIK.rs";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/logo.png`;
 const STRUCTURED_DATA_TAG_ID = "seo-structured-data";

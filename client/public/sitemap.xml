@@ -1,45 +1,73 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://xn--elik-fua.rs/</loc>
-    <lastmod>2026-08-03</lastmod>
+    <loc>https://modularnisistemi.com/</loc>
+    <lastmod>2026-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://modularnisistemi.com/modularni-pod-terasa-exterijer-moderna-4.webp</image:loc>
+      <image:title>Modularni podni sistem - moderna terasa</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://modularnisistemi.com/wpc-monoblok-paneli-paleta-isporuka.webp</image:loc>
+      <image:title>Gotov modularni pod - isporuka na paleti</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://xn--elik-fua.rs/proizvod/eco-green</loc>
-    <lastmod>2026-08-03</lastmod>
+    <loc>https://modularnisistemi.com/proizvod/eco-green</loc>
+    <lastmod>2026-08-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://modularnisistemi.com/eco-green-monoblok-vestacka-trava-1.webp</image:loc>
+      <image:title>ECO-GREEN monoblok - veštačka trava</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://xn--elik-fua.rs/proizvod/gres-premium</loc>
-    <lastmod>2026-08-03</lastmod>
+    <loc>https://modularnisistemi.com/proizvod/gres-premium</loc>
+    <lastmod>2026-08-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://modularnisistemi.com/gres-premium-monoblok-keramika-1.webp</image:loc>
+      <image:title>GRES-PREMIUM monoblok - keramika</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://xn--elik-fua.rs/proizvod/heavy-duty</loc>
-    <lastmod>2026-08-03</lastmod>
+    <loc>https://modularnisistemi.com/proizvod/heavy-duty</loc>
+    <lastmod>2026-08-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://modularnisistemi.com/heavy-duty-monoblok-industrijska-resetka-1.webp</image:loc>
+      <image:title>HEAVY-DUTY monoblok - industrijska rešetka</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://xn--elik-fua.rs/proizvod/wpc-compound</loc>
-    <lastmod>2026-08-03</lastmod>
+    <loc>https://modularnisistemi.com/proizvod/wpc-compound</loc>
+    <lastmod>2026-08-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://modularnisistemi.com/wpc-compound-monoblok-drvo-kompozit-1.webp</image:loc>
+      <image:title>WPC-COMPOUND monoblok - drvo kompozit</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://xn--elik-fua.rs/proizvod/fire-pit-grill</loc>
-    <lastmod>2026-08-03</lastmod>
+    <loc>https://modularnisistemi.com/proizvod/fire-pit-grill</loc>
+    <lastmod>2026-08-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://modularnisistemi.com/fire-pit-grill-celicna-vatra-rostilj.webp</image:loc>
+      <image:title>Fire Pit Grill - čelično vatrište i roštilj</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://xn--elik-fua.rs/saradnja-sa-arhitektama</loc>
-    <lastmod>2026-08-03</lastmod>
+    <loc>https://modularnisistemi.com/saradnja-sa-arhitektama</loc>
+    <lastmod>2026-08-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

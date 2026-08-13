@@ -13,7 +13,7 @@ export const SCRIPT_CONTENT = {
     subtitle: "Instalacija za 15 Minuta. Bez Majstora!",
     description: "Investirajte jednom. Rešite podlogu zauvek. Prefabrikovani modularni segmenti sa integrisanim sklopivim stopama prilagođeni za sve terene, oblike i namene.",
     cta: "IZRAČUNAJ CENU ZA 30 SEKUNDI",
-    heroImgUrl: "/manus-storage/hero_deking_keramika_b5cd7c9a.webp",
+    heroImgUrl: "/modularni-pod-terasa-exterijer-moderna-4.webp",
   },
   iconsBanner: [
     { label: "MODULARNI SISTEM", desc: "Paneli dimenzija 1x1m koji se bočno spajaju bez ijednog šrafa na licu mesta." },
@@ -228,7 +228,7 @@ export const SCRIPT_CONTENT = {
         desc: "Sistem stiže potpuno fabrički sklopljen. Monoblok panele jednostavno spustite na poziciju i bočno spojite bez ijednog šrafa. Vaš novi pod je spreman odmah!",
       },
     ],
-    stepsImgUrl: "/manus-storage/paleta_gotov_pod_dfe98f45.webp",
+    stepsImgUrl: "/wpc-monoblok-paneli-paleta-isporuka.webp",
   },
   contactGrid: {
     heading: "KONTAKT",
@@ -464,9 +464,9 @@ function ImageSlider({ variants, productTitle }: { variants: { img: string; labe
 
 export default function CelikMainPage() {
   useSEO({
-    title: "ČELIK.rs - Modularni Podni Sistemi | Fabrički Sklopljeni Monoblok Paneli",
+    title: "Modularni Sistemi - Uradi Sam za 15 Minuta | ČELIK.rs",
     description:
-      "Sistem gotovih fabrički sklopljenih monoblok panela za bilo koju podlogu — terase, dvorišta, zone oko bazena, poslovne i ugostiteljske prostore. Instalacija za 15 minuta, bez majstora i bez alata.",
+      "Modularne podne sisteme montirate sami za 15 minuta — bez majstora, bez alata. Fabrički sklopljeni monoblok paneli za terase, dvorišta, zone oko bazena, poslovne i ugostiteljske prostore.",
     path: "/",
     // No dynamic structuredData here — the Organization schema lives statically in
     // index.html so it's present even for crawlers that don't execute JavaScript.
