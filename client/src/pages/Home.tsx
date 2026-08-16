@@ -234,10 +234,10 @@ export const SCRIPT_CONTENT = {
     heading: "KONTAKT",
     subheading: "Nema potrebe za komplikovanom dokumentacijom. Izaberite kanal, uslikajte Vaš teren i pošaljite nam sliku za instant procenu cene.",
     items: [
-      { label: "TELEFON", value: "+381 61 621 1100", href: "tel:+381616211100", icon: "phone" },
+      { label: "TELEFON", value: "+381 66 241-386", href: "tel:+38166241386", icon: "phone" },
       { label: "EMAIL", value: "modularnipodnisistem@gmail.com", href: "mailto:modularnipodnisistem@gmail.com", icon: "email" },
-      { label: "WHATSAPP", value: "Instant poruka — Pošaljite sliku prostora", href: "https://wa.me/381616211100", icon: "whatsapp" },
-      { label: "VIBER", value: "Brza procena — Pošaljite sliku terena", href: "viber://chat?number=%2B381616211100", icon: "viber" }
+      { label: "WHATSAPP", value: "Instant poruka — Pošaljite sliku prostora", href: "https://wa.me/38166241386", icon: "whatsapp" },
+      { label: "VIBER", value: "Brza procena — Pošaljite sliku terena", href: "viber://chat?number=%2B38166241386", icon: "viber" }
     ]
   },
   ctaBottom: {
@@ -464,9 +464,9 @@ function ImageSlider({ variants, productTitle }: { variants: { img: string; labe
 
 export default function CelikMainPage() {
   useSEO({
-    title: "Modularni Sistemi - Uradi Sam za 15 Minuta | ČELIK.rs",
+    title: "Modularni Sistemi - Uradi Sam za 15 Minuta | čelik.rs",
     description:
-      "Modularne podne sisteme montirate sami za 15 minuta — bez majstora, bez alata. Fabrički sklopljeni monoblok paneli za terase, dvorišta, zone oko bazena, poslovne i ugostiteljske prostore.",
+      "Preuredite enterijer i eksterijer uz modularne sisteme \"uradi sam\". Brza montaža svih elemenata za 15 minuta bez alata. Otkrijte sve opcije na čelik.rs!",
     path: "/",
     // No dynamic structuredData here — the Organization schema lives statically in
     // index.html so it's present even for crawlers that don't execute JavaScript.
@@ -515,7 +515,7 @@ export default function CelikMainPage() {
   const totalPanels = selectedSystemData && width && length
     ? Math.ceil((parseFloat(width) * parseFloat(length)) / (moduleSize * moduleSize))
     : 0;
-  const totalPrice = totalPanels * (selectedSystemData?.price || 0);
+  const totalArea = width && length ? parseFloat(width) * parseFloat(length) : 0;
 
   const handleModalSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -540,7 +540,7 @@ export default function CelikMainPage() {
       formData.append("Dužina površine (m)", length);
       formData.append("Odabrani sistem", selectedSystemData?.name ?? "");
       formData.append("Broj panela", String(totalPanels));
-      formData.append("Procenjena cena (EUR)", `€${totalPrice.toFixed(2)}`);
+      formData.append("Površina (m²)", totalArea.toFixed(2));
       if (uploadedFile) {
         formData.append("attachment", uploadedFile);
       }
@@ -1180,9 +1180,9 @@ export default function CelikMainPage() {
 
               {totalPanels > 0 && (
                 <div className="bg-blue-900/5 border border-blue-900/20 p-4 rounded-none">
-                  <p className="text-sm text-zinc-600 mb-2">Procenjena Vrednost:</p>
+                  <p className="text-sm text-zinc-600 mb-2">Vaš proračun:</p>
                   <p className="text-2xl font-black text-blue-900 tracking-normal">
-                    {totalPanels} panela × €{selectedSystemData?.price} = €{totalPrice.toFixed(2)}
+                    {totalArea.toFixed(2)} m² — {totalPanels} panela ({selectedSystemData?.name})
                   </p>
                   <p className="text-xs text-zinc-500 mt-3">
                     Napomena: Proračun je informativan jer radimo projekte po meri. Finalnu ponudu i broj blokova definisaćemo kroz tehnički crtež.

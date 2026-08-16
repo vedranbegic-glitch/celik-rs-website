@@ -78,13 +78,14 @@ export default function ProductDetail() {
           type: "product",
           structuredData: {
             "@context": "https://schema.org",
-            "@type": "Product",
+            "@type": "Service",
             name: product.title,
             description: product.benefit,
             image: `${SITE_URL}${product.variants[0].img}`,
             url: `${SITE_URL}/proizvod/${product.slug}`,
-            brand: { "@type": "Brand", name: "ČELIK.rs" },
-            category: product.useCase,
+            provider: { "@type": "Organization", name: "ČELIK.rs", url: SITE_URL },
+            areaServed: "RS",
+            serviceType: product.useCase,
           },
         }
       : {
