@@ -1,24 +1,17 @@
 import { useEffect } from "react";
 
 const SITE_URL = "https://modularnisistemi.com";
-const SITE_NAME = "ČELIK.rs";
+const SITE_NAME = "Modularni Sistemi";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/logo.png`;
 const STRUCTURED_DATA_TAG_ID = "seo-structured-data";
 
 interface SEOOptions {
-  /** Full <title> tag content, already including the " | ČELIK.rs" suffix if wanted. */
   title: string;
-  /** Meta description, ideally 120–160 characters. */
   description: string;
-  /** Route path starting with "/", e.g. "/proizvod/eco-green". Defaults to "/". */
   path?: string;
-  /** Absolute or root-relative image URL for og:image. */
   image?: string;
-  /** og:type — "website" or "product" etc. */
   type?: string;
-  /** Arbitrary JSON-LD object (or array of objects) to inject as <script type="application/ld+json">. */
   structuredData?: Record<string, unknown> | Record<string, unknown>[];
-  /** Set true on pages that should not be indexed (e.g. 404). */
   noindex?: boolean;
 }
 
@@ -42,14 +35,14 @@ function upsertLink(rel: string, href: string) {
   el.setAttribute("href", href);
 }
 
-/**
- * Sets document.title, meta description, canonical URL, Open Graph tags,
- * robots directive and (optionally) JSON-LD structured data for the
- * currently mounted page. Safe to call from every route component —
- * it updates the existing tags declared in index.html rather than
- * duplicating them, so every route ends up with its own accurate
- * title/description instead of sharing the homepage's defaults.
- */
+function toAbsoluteUrl(urlOrPath: string): string {
+  if (urlOrPath.startsWith("http://") || urlOrPath.startsWith("https://")) {
+    return urlOrPath;
+  }
+  const cleanPath = urlOrPath.startsWith("/") ? urlOrPath : `/${urlOrPath}`;
+  return `${SITE_URL}${cleanPath}`;
+}
+
 export function useSEO({
   title,
   description,
@@ -60,23 +53,32 @@ export function useSEO({
   noindex = false,
 }: SEOOptions) {
   useEffect(() => {
-    const canonicalUrl = `${SITE_URL}${path}`;
+    const cleanPath = path.startsWith("/") ? path : `/${path}`;
+    const canonicalUrl = `${SITE_URL}${cleanPath}`;
+    const absoluteImageUrl = toAbsoluteUrl(image);
 
     document.title = title;
 
+    // Standard meta
     upsertMetaByAttr("name", "description", description);
+    upsertMetaByAttr("name", "robots", noindex ? "noindex, nofollow" : "index, follow");
+    upsertLink("canonical", canonicalUrl);
+
+    // OpenGraph
     upsertMetaByAttr("property", "og:title", title);
     upsertMetaByAttr("property", "og:description", description);
     upsertMetaByAttr("property", "og:url", canonicalUrl);
-    upsertMetaByAttr("property", "og:image", image);
+    upsertMetaByAttr("property", "og:image", absoluteImageUrl);
     upsertMetaByAttr("property", "og:type", type);
     upsertMetaByAttr("property", "og:site_name", SITE_NAME);
 
-    upsertLink("canonical", canonicalUrl);
+    // Twitter Cards
+    upsertMetaByAttr("name", "twitter:card", "summary_large_image");
+    upsertMetaByAttr("name", "twitter:title", title);
+    upsertMetaByAttr("name", "twitter:description", description);
+    upsertMetaByAttr("name", "twitter:image", absoluteImageUrl);
 
-    upsertMetaByAttr("name", "robots", noindex ? "noindex, nofollow" : "index, follow");
-
-    // Structured data (JSON-LD) — only one dynamic block at a time.
+    // JSON-LD Structured Data
     const existingScript = document.getElementById(STRUCTURED_DATA_TAG_ID);
     if (structuredData) {
       const script = existingScript ?? document.createElement("script");
@@ -88,14 +90,11 @@ export function useSEO({
       existingScript.remove();
     }
 
-    // Cleanup: remove the page-specific JSON-LD when navigating away so it
-    // never leaks into a page that didn't ask for it.
     return () => {
       if (structuredData) {
         document.getElementById(STRUCTURED_DATA_TAG_ID)?.remove();
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [title, description, path, image, type, noindex, JSON.stringify(structuredData ?? null)]);
 }
 

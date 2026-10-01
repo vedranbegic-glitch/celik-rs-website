@@ -71,26 +71,34 @@ export default function ProductDetail() {
   useSEO(
     product
       ? {
-          title: `${product.title} — Modularni Podni Sistem | ČELIK.rs`,
+          title: `${product.title} — Modularni Podni Sistem | Modularni Sistemi`,
           description: product.benefit.length > 160 ? `${product.benefit.slice(0, 157)}...` : product.benefit,
           path: `/proizvod/${product.slug}`,
           image: `${SITE_URL}${product.variants[0].img}`,
           type: "product",
           structuredData: {
             "@context": "https://schema.org",
-            "@type": "Service",
+            "@type": "Product",
             name: product.title,
             description: product.benefit,
             image: `${SITE_URL}${product.variants[0].img}`,
             url: `${SITE_URL}/proizvod/${product.slug}`,
-            provider: { "@type": "Organization", name: "ČELIK.rs", url: SITE_URL },
-            areaServed: "RS",
-            serviceType: product.useCase,
+            brand: {
+              "@type": "Brand",
+              name: "Modularni Sistemi",
+            },
+            offers: {
+              "@type": "Offer",
+              url: `${SITE_URL}/proizvod/${product.slug}`,
+              priceCurrency: "RSD",
+              availability: "https://schema.org/InStock",
+            },
+            category: product.useCase,
           },
         }
       : {
-          title: "Proizvod nije pronađen | ČELIK.rs",
-          description: "Traženi proizvod ne postoji na ČELIK.rs.",
+          title: "Proizvod nije pronađen | Modularni Sistemi",
+          description: "Traženi proizvod ne postoji na Modularni Sistemi.",
           path: `/proizvod/${slug ?? ""}`,
           noindex: true,
         }
@@ -114,7 +122,7 @@ export default function ProductDetail() {
       {/* Simple top bar */}
       <nav className="w-full bg-white border-b border-zinc-200 h-16 flex items-center px-4">
         <div className="max-w-4xl w-full mx-auto flex items-center justify-between">
-          <img src="/logo.png" alt="ČELIK logo" style={{ height: "36px", width: "auto" }} />
+          <img src="/logo.png" alt="Modularni Sistemi Logo" style={{ height: "36px", width: "auto" }} />
           <Link
             href="/"
             className="flex items-center gap-2 text-zinc-700 hover:text-orange-600 font-semibold text-xs uppercase transition-colors"
@@ -126,10 +134,16 @@ export default function ProductDetail() {
       </nav>
 
       <div className="max-w-4xl mx-auto px-4 py-12 md:py-16">
-        <div
-          className="h-72 md:h-96 bg-cover bg-center bg-zinc-200 mb-8"
-          style={{ backgroundImage: `url('${product.variants[0].img}')` }}
-        ></div>
+        {/* Semantička glavna slika proizvoda sa alt tekstom za Google Images */}
+        <div className="w-full h-72 md:h-96 bg-zinc-100 overflow-hidden mb-8">
+          <img
+            src={product.variants[0].img}
+            alt={`${product.title} — ${product.useCase}`}
+            className="w-full h-full object-cover object-center"
+            loading="eager"
+            fetchPriority="high"
+          />
+        </div>
 
         <div className="inline-block bg-blue-900/8 text-blue-900 px-3 py-1 rounded-none text-xs font-black uppercase mb-4 w-fit">
           {product.badge}
